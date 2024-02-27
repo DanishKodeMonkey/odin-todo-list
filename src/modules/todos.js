@@ -1,14 +1,16 @@
+import { format } from 'date-fns'
+
 // Class module to export ,keep in mind it should only create the class objects.
 // Keep type checks, as seperate functions
 
 // Pseudocode todos (ironic I know)
 /* Title should just be title, 
     can be whatever. 
-        Make sure input is sanitised? 
+      --  Make sure input is sanitised? -- it's an exercise, keep in mind for future project tho
         Limit to 30 letters? */
 /* desc should be description, 
     can be whatever. 
-        Make sure input is sanitised?  
+        --Make sure input is sanitised?  -- not part of exercise, but good practice
         Limit to 100 letters? */
 /* due date 
     should be type checked, 
@@ -43,9 +45,9 @@
 
 export default class ToDo {
 	constructor(title, desc, dueDate, priority, notes, checklist) {
-		this.title = title
-		this.desc = desc
-		this.dueDate = dueDate
+		this.title = checkTitle(title)
+		this.desc = checkDesc(desc)
+		this.dueDate = formatDate(dueDate)
 		this.priority = priority
 		this.notes = notes
 		this.checklist = checklist
@@ -58,4 +60,24 @@ export default class ToDo {
 		console.log(`notes: ${this.notes},`)
 		console.log(`checklist: ${this.checklist}.`)
 	}
+}
+
+// Checks below
+
+function checkTitle(title) {
+	// Would also include sanitisation
+	if (title.length <= 10) return title
+	else return 'Title too long'
+}
+
+function checkDesc(desc) {
+	// Would also include sanitisation
+	if (desc.length <= 100) return desc
+	else return 'Description too long'
+}
+
+function formatDate(dueDate) {
+	const arr = dueDate.split(/-/)
+
+	return format(new Date(arr[2], arr[1], arr[0]), 'dd-MM-yyyy')
 }
