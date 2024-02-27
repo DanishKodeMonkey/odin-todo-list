@@ -2,17 +2,19 @@ import './style.css'
 import ToDo from './modules/todos'
 import project from './modules/projects'
 
-let projectsArray = []
 // App function should handle evoking DOM elements onscreen.
 function app() {
+	let projectsArray = []
 	// Check if a project exist, if not, create a project.
 	// Uses a pre set blank one here until persistence is established
 	/* 
 	init(projectsArray) */
+	init(projectsArray)
 }
 
 app()
 
+// Function for updating the overview tree on UI
 function updateTree(projectsArray) {
 	console.log('updateTree triggered')
 	const display = document.querySelector('.overview-tree')
@@ -49,7 +51,7 @@ function init(projectsArray) {
 	updateTree(projectsArray)
 }
 // Sim tests
-let test = new ToDo(
+/* let test = new ToDo(
 	'title',
 	'descriptionhere',
 	'20-02-2024',
@@ -98,3 +100,4 @@ project2.printProject()
 projectsArray.push(project1, project2)
 console.log(projectsArray)
 updateTree(projectsArray)
+ */
