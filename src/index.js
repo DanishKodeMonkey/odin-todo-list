@@ -2,6 +2,21 @@ import './style.css'
 import ToDo from './modules/todos'
 import project from './modules/projects'
 
+function app() {
+	// Check if a project exist, if not, create a project.
+	// Uses a pre set blank one here until persistence is established
+	let projectsArray = []
+	let projecttest = new project('derp')
+	projectsArray.push(projecttest)
+	if (projectsArray.length === 0) {
+		console.log('projectsArray is empty. Creating default array')
+		let defaultProject = new project()
+		console.log(`default object created, name: ${defaultProject.title}`)
+	} else console.log(`Array found in projectsArray: ${projectsArray[0].title}`)
+}
+
+app()
+/* Sim tests
 let test = new ToDo(
 	'title',
 	'descriptionhere',
@@ -47,3 +62,4 @@ project2.addToProject(test3)
 
 project1.printProject()
 project2.printProject()
+ */
