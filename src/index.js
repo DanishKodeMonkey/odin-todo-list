@@ -1,5 +1,6 @@
 import './style.css'
 import ToDo from './modules/todos'
+import project from './modules/projects'
 
 let test = new ToDo(
 	'title',
@@ -17,10 +18,32 @@ let test2 = new ToDo(
 	'title2butitswaytoolong',
 	'descriptionheretoo',
 	'20-02-2024',
-	'high priority',
+	'yes',
 	'noted to be notes',
 	'checklist'
 )
 
+let test3 = new ToDo(
+	'title3pret',
+	'its pretty',
+	'00-06-2026',
+	'yes',
+	'terep sepre lerem tuti frutti melon scrutti holy moly shifu soley'
+)
+
+// Sim tests
+
+let project1 = new project('test Project')
+let project2 = new project('second project test')
+
 test.printToDo()
 test2.printToDo()
+test3.printToDo()
+
+project1.addToProject(test)
+project1.addToProject(test2)
+
+project2.addToProject(test3)
+
+project1.printProject()
+project2.printProject()
