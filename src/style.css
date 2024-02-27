@@ -62,15 +62,47 @@ header{
 main{
     flex: 1 1 auto;
     display:grid;
-    grid-template: 1fr 10fr / 1fr 8fr;
+    grid-template: 1fr 10fr / 1fr 6fr;
     background-color: rgba(0, 0, 0, 0.075);
     height: 100%;
     
 }
 .overview-tree{
     grid-area: 1 / 1 / 3 / 2;
+    display: flex;
+    flex-direction: column;
+
     background-color: rgba(0, 0, 0, 0.575);
+    border: 2px solid black;
+    padding:10% 0;
+    color:white;
+    >.title{text-align: center;}
 }
+.overview{
+    padding: 0;
+    flex-flow: column;
+    align-items: left;
+    text-align:left;
+    >.overview-project{
+        background-color: rgb(61, 61, 61);
+        list-style:circle inside none;
+        margin:5px 0;
+        padding: 10px;
+        border-bottom: 2px solid black;
+        font-size: 100%;
+        color: rgb(255, 255, 255);
+        >.overview-todo{
+            background-color: silver;
+            padding: 0 10%;
+            list-style: disc inside none;
+            border-top:2px dashed black;
+            
+            font-size: 80%;
+            color: blue;
+        }
+    }
+}
+
 .toolbar{
     grid-area: 1 / 2 / 2 / 3;
     background-color: rgba(165, 42, 42, 0.486);

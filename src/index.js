@@ -2,12 +2,13 @@ import './style.css'
 import ToDo from './modules/todos'
 import project from './modules/projects'
 
+let projectsArray = []
 // App function should handle evoking DOM elements onscreen.
 function app() {
 	// Check if a project exist, if not, create a project.
 	// Uses a pre set blank one here until persistence is established
-	let projectsArray = []
-	init(projectsArray)
+	/* 
+	init(projectsArray) */
 }
 
 app()
@@ -16,10 +17,20 @@ function updateTree(projectsArray) {
 	console.log('updateTree triggered')
 	const display = document.querySelector('.overview-tree')
 	const treeRender = document.createElement('ul')
+	treeRender.classList.add('overview')
 	projectsArray.forEach((project) => {
+		console.log(project)
+		// add a project sub-ul element to tree root
 		const treeProject = document.createElement('li')
+		treeProject.classList.add('overview-project')
 		treeProject.textContent = project.title
-		//add logic to also display todos inside project? Titles atleast?
+		//add todo titles to project as li
+		project.todos.forEach((todos) => {
+			const projectTodo = document.createElement('li')
+			projectTodo.classList.add('overview-todo')
+			projectTodo.textContent = todos.title
+			treeProject.appendChild(projectTodo)
+		})
 		treeRender.appendChild(treeProject)
 		return treeRender
 	})
@@ -37,7 +48,7 @@ function init(projectsArray) {
 	// update DOM tree
 	updateTree(projectsArray)
 }
-/* Sim tests
+// Sim tests
 let test = new ToDo(
 	'title',
 	'descriptionhere',
@@ -83,4 +94,7 @@ project2.addToProject(test3)
 
 project1.printProject()
 project2.printProject()
- */
+
+projectsArray.push(project1, project2)
+console.log(projectsArray)
+updateTree(projectsArray)
