@@ -2,18 +2,41 @@ import './style.css'
 import ToDo from './modules/todos'
 import project from './modules/projects'
 
+// App function should handle evoking DOM elements onscreen.
 function app() {
 	// Check if a project exist, if not, create a project.
 	// Uses a pre set blank one here until persistence is established
 	let projectsArray = []
-	if (projectsArray.length === 0) {
-		console.log('projectsArray is empty. Creating default array')
-		let defaultProject = new project()
-		console.log(`default object created, name: ${defaultProject.title}`)
-	} else console.log(`Array found in projectsArray: ${projectsArray[0].title}`)
+	init(projectsArray)
 }
 
 app()
+
+function updateTree(projectsArray) {
+	console.log('updateTree triggered')
+	const display = document.querySelector('.overview-tree')
+	const treeRender = document.createElement('ul')
+	projectsArray.forEach((project) => {
+		const treeProject = document.createElement('li')
+		treeProject.textContent = project.title
+		//add logic to also display todos inside project? Titles atleast?
+		treeRender.appendChild(treeProject)
+		return treeRender
+	})
+	display.appendChild(treeRender)
+}
+
+// Page initialiser, initialise resources.
+function init(projectsArray) {
+	if (projectsArray.length === 0) {
+		console.log('projectsArray is empty. Creating default array')
+		let defaultProject = new project()
+		projectsArray.push(defaultProject)
+		console.log(`default object created, name: ${defaultProject.title}`)
+	} else console.log(`Array found in projectsArray: ${projectsArray[0].title}`)
+	// update DOM tree
+	updateTree(projectsArray)
+}
 /* Sim tests
 let test = new ToDo(
 	'title',
