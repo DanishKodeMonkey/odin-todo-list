@@ -6,8 +6,6 @@ function app() {
 	// Check if a project exist, if not, create a project.
 	// Uses a pre set blank one here until persistence is established
 	let projectsArray = []
-	let projecttest = new project('derp')
-	projectsArray.push(projecttest)
 	if (projectsArray.length === 0) {
 		console.log('projectsArray is empty. Creating default array')
 		let defaultProject = new project()
