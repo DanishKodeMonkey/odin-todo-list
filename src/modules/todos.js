@@ -44,21 +44,24 @@ import { format } from 'date-fns'
     for each argument parsed to constructor(str) */
 
 export default class ToDo {
-	constructor(title, desc, dueDate, priority, notes, checklist) {
+	constructor(title, desc, dueDate, priority, notes, ...checkList) {
 		this.title = checkTitle(title)
 		this.desc = checkDesc(desc)
 		this.dueDate = formatDate(dueDate)
-		this.priority = priority
+		this.priority = isPriority(priority)
 		this.notes = notes
-		this.checklist = checklist
+		//checkList is a array, perfect.
+		this.checklist = checkList
 	}
 	printToDo() {
+		console.log('====================================================')
 		console.log(`title: ${this.title},`)
 		console.log(`description: ${this.desc},`)
 		console.log(`due date: ${this.dueDate},`)
 		console.log(`priority: ${this.priority},`)
 		console.log(`notes: ${this.notes},`)
 		console.log(`checklist: ${this.checklist}.`)
+		console.log('====================================================')
 	}
 }
 
@@ -80,4 +83,13 @@ function formatDate(dueDate) {
 	const arr = dueDate.split(/-/)
 
 	return format(new Date(arr[2], arr[1], arr[0]), 'dd-MM-yyyy')
+}
+
+function isPriority(priority) {
+	if (priority == 'yes') return true
+	else return false
+}
+
+function createChecklist(checkList) {
+	//reserved for UI implementation?
 }

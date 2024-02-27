@@ -5,18 +5,22 @@ let test = new ToDo(
 	'title',
 	'descriptionhere',
 	'20-02-2024',
-	'low priority',
+	'poop',
 	'noted to be notes',
-	'no checklist'
+	'no checklist',
+	'but there is',
+	'butnotruly',
+	'cmontinychecklist',
+	'letsgooo!'
 )
-/* let test2 = new ToDo(
+let test2 = new ToDo(
 	'title2butitswaytoolong',
 	'descriptionheretoo',
-	'10/08/24',
+	'20-02-2024',
 	'high priority',
 	'noted to be notes',
 	'checklist'
-) */
+)
 
 test.printToDo()
-/* test2.printToDo() */
+test2.printToDo()
