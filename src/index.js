@@ -69,10 +69,13 @@ function updateProjectsArray(inputType, modalInput) {
 
 // Function for updating the overview tree on UI
 function updateTree(projectsArray) {
+	// Console log for status trigger
 	console.log('updateTree triggered! Array received:')
 	console.log(projectsArray)
+
+	// fetch display element on DOM
 	const display = document.querySelector('.overview-tree')
-	// Clear existing DOM for new version
+	// Clear existing content from element, for new version.
 	display.textContent = ''
 
 	// Create new DOM content
@@ -80,14 +83,18 @@ function updateTree(projectsArray) {
 	title.classList.add('title')
 	title.textContent = 'PROJECTS'
 
+	// tree roots render
 	const treeRender = document.createElement('ul')
 	treeRender.classList.add('overview')
+	// for each project in projectsArray
 	projectsArray.forEach((project, projectIndex) => {
-		// add a project sub-ul element to tree root
+		// add a project li element to tree root render
 		const treeProject = document.createElement('li')
 		treeProject.classList.add('overview-project')
+
 		const projectTitle = document.createElement('div')
 		projectTitle.textContent = project.title
+
 		const projectDelBtn = document.createElement('button')
 		projectDelBtn.classList.add('delBtn')
 		projectDelBtn.innerHTML = '&#10006'
@@ -95,9 +102,11 @@ function updateTree(projectsArray) {
 			projectsArray.splice(projectIndex, 1)
 			updateTree(projectsArray)
 		})
+		// put the project elements together
 		projectTitle.appendChild(projectDelBtn)
 		treeProject.appendChild(projectTitle)
-		//add todo titles to project as li
+
+		// add todo titles of each project li as sub-li
 		project.todos.forEach((todo, todoIndex) => {
 			const projectTodo = document.createElement('li')
 			projectTodo.classList.add('overview-todo')
@@ -110,12 +119,14 @@ function updateTree(projectsArray) {
 				projectsArray[projectIndex].todos.splice(todoIndex, 1)
 				updateTree(projectsArray)
 			})
-
+			// put the todo elements together
 			projectTodo.appendChild(todoDelBtn)
 			treeProject.appendChild(projectTodo)
 		})
+		// attached project elements to tree root
 		treeRender.appendChild(treeProject)
 	})
+	// attach tree root to display
 	display.append(title, treeRender)
 }
 
