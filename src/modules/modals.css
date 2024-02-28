@@ -1,0 +1,24 @@
+::backdrop{
+    background-color: rgba(0, 0, 0, 0.699);
+}
+
+#modal{
+    background-color: cadetblue;
+    display: flexbox;
+    flex-direction: column;
+}
+.header{
+    text-align: center;
+    font-size: 2vw;
+    font-weight: 900;
+    border-bottom:3px dotted black
+}
+
+.container{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    align-items: center;
+    text-align: left;
+    >label{text-align: left;}
+}

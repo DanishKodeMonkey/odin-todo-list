@@ -1,14 +1,27 @@
 import './style.css'
 import ToDo from './modules/todos'
 import project from './modules/projects'
+import createModal from './modules/modals'
 
 // App function should handle evoking DOM elements onscreen.
 function app() {
+	const addTodoBtn = document.querySelector('#button-todo')
+	addTodoBtn.addEventListener('click', (e) => {
+		createModal(e.target.getAttribute('type'))
+		modal.showModal()
+	})
+	const addProjectBtn = document.querySelector('#button-project')
+	addProjectBtn.addEventListener('click', (e) => {
+		createModal(e.target.getAttribute('type'))
+		modal.showModal()
+	})
+
+	//Testing, remove after styling
+	addTodoBtn.click()
+
 	let projectsArray = []
 	// Check if a project exist, if not, create a project.
 	// Uses a pre set blank one here until persistence is established
-	/* 
-	init(projectsArray) */
 	init(projectsArray)
 }
 
@@ -100,4 +113,27 @@ project2.printProject()
 projectsArray.push(project1, project2)
 console.log(projectsArray)
 updateTree(projectsArray)
+ */
+
+//test
+
+/* const testAttrBomb = document.createElement('input')
+
+const AttrBomb = {
+	name: 'project-title',
+	id: 'project-title',
+	type: 'text',
+}
+
+function bombAttr(bomb, element) {
+	for (const [key, val] of Object.entries(bomb)) {
+		element.setAttribute(key, val)
+	}
+}
+
+console.log(testAttrBomb)
+console.log(AttrBomb)
+
+bombAttr(AttrBomb, testAttrBomb)
+console.log(testAttrBomb)
  */

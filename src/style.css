@@ -62,7 +62,7 @@ header{
 main{
     flex: 1 1 auto;
     display:grid;
-    grid-template: 1fr 10fr / 1fr 6fr;
+    grid-template: 1fr 20fr / 1fr 6fr;
     background-color: rgba(0, 0, 0, 0.075);
     height: 100%;
     
@@ -74,11 +74,15 @@ main{
 
     background-color: rgba(0, 0, 0, 0.575);
     border: 2px solid black;
-    padding:10% 0;
     color:white;
-    >.title{text-align: center;}
+    >.title{text-align: center;
+            font-weight: 700;
+            font-size: 1.5vw;
+        background-color: rgb(62, 87, 94);
+        padding: 10% 0}
 }
 .overview{
+    margin:0;
     padding: 0;
     flex-flow: column;
     align-items: left;
@@ -86,7 +90,7 @@ main{
     >.overview-project{
         background-color: rgb(61, 61, 61);
         list-style:circle inside none;
-        margin:5px 0;
+        margin-bottom:5px;
         padding: 10px;
         border-bottom: 2px solid black;
         font-size: 100%;
@@ -104,9 +108,23 @@ main{
 }
 
 .toolbar{
+    display: flex;
+    justify-content: flex-start;
     grid-area: 1 / 2 / 2 / 3;
     background-color: rgba(165, 42, 42, 0.486);
+
 }
+
+.toolbar-button{
+    width: 10vw;
+    background-color: whitesmoke;
+    font-size: 1vw;
+    border: 1px solid black;
+    border-radius: 10px;
+    transition: 100ms ease-in-out;
+}
+.toolbar-button:hover{background-color: rgb(255, 226, 148);}
+.toolbar-button:active{background-color: aliceblue; scale:90%;}
 .content{
     grid-area: 2 / 2 / 3 / 3;
 }
