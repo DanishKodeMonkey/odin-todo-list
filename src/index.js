@@ -2,27 +2,34 @@ import './style.css'
 import project from './modules/projects'
 import ToDo from './modules/todos'
 import createModal from './modules/modals'
+// main array containing all projects and todos (Lets not remove this without due cause yea?)
 let projectsArray = []
+// content area
 
-// App function should handle evoking DOM elements onscreen.
-function app() {
-	const addTodoBtn = document.querySelector('#button-todo')
-	addTodoBtn.addEventListener('click', (e) => {
-		createModal(e.target.getAttribute('type'))
-		modal.showModal()
-	})
-	const addProjectBtn = document.querySelector('#button-project')
-	addProjectBtn.addEventListener('click', (e) => {
-		createModal(e.target.getAttribute('type'))
-		modal.showModal()
-	})
-	// Page initialiser
-	// Check if a project exist, if not, create a project.
-	// Uses a pre set blank array here until persistence is established
-	init()
-}
+/* pseudocode - content area 
+ 
+ Render a display containing the selected project(perhaps chosing via the project overview?)
+	Show the title of the project (e.g default for the default project)
+	render a container for displaying todos
+		in container render a card for each todo of the project(mainly showing title and description)
+			clicking a card should expand the card in the middle of the screen(modal?)
+				should be editable here? Have a edit button?(start with just showing it though)
+				should be deletable here? Have a delete button? (start with just showing it though)
+				clicking outside the expanded card should close the card again
+clicking any other project in the project overview, clears the display, and creates a new one 
+ */
+// toolbar
 
-app()
+const addTodoBtn = document.querySelector('#button-todo')
+addTodoBtn.addEventListener('click', (e) => {
+	createModal(e.target.getAttribute('type'))
+	modal.showModal()
+})
+const addProjectBtn = document.querySelector('#button-project')
+addProjectBtn.addEventListener('click', (e) => {
+	createModal(e.target.getAttribute('type'))
+	modal.showModal()
+})
 
 function updateProjectsArray(inputType, modalInput) {
 	if (inputType === 'todo') {
@@ -142,6 +149,11 @@ function init() {
 	// update DOM tree
 	updateTree(projectsArray)
 }
+
+// Page initialiser
+// Check if a project exist, if not, create a project.
+// Uses a pre set blank array here until persistence is established
+init()
 export { projectsArray, updateProjectsArray }
 // Sim tests
 /* let test = new ToDo(
@@ -193,27 +205,4 @@ project2.printProject()
 projectsArray.push(project1, project2)
 console.log(projectsArray)
 updateTree(projectsArray)
- */
-
-//test
-
-/* const testAttrBomb = document.createElement('input')
-
-const AttrBomb = {
-	name: 'project-title',
-	id: 'project-title',
-	type: 'text',
-}
-
-function bombAttr(bomb, element) {
-	for (const [key, val] of Object.entries(bomb)) {
-		element.setAttribute(key, val)
-	}
-}
-
-console.log(testAttrBomb)
-console.log(AttrBomb)
-
-bombAttr(AttrBomb, testAttrBomb)
-console.log(testAttrBomb)
  */

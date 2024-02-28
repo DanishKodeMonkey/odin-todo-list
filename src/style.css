@@ -149,7 +149,8 @@ main{
 }
 .toolbar-button:hover{background-color: rgb(255, 226, 148);}
 .toolbar-button:active{background-color: aliceblue; scale:90%;}
-.content{
+.content-container{
+    background-color: rgba(165, 42, 42, 0.801);
     grid-area: 2 / 2 / 3 / 3;
 }
 
