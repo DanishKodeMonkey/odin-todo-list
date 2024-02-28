@@ -1,8 +1,11 @@
 import './modals.css'
+import { projectsArray, updateTree } from '../index'
+import ToDo from './todos'
 
 export default function createModal(type) {
 	// Fetch modal element from DOM
 	const modal = document.querySelector('#modal')
+	modal.textContent = ''
 
 	// Create relevant modal content
 	// Form elements holds entire form inside modal
@@ -27,12 +30,15 @@ export default function createModal(type) {
 	}
 
 	//Modal buttons
+
+	//submit button
 	const btnDiv = document.createElement('div')
 	const submitBtn = document.createElement('input')
 	submitBtn.classList.add('modal-button')
 	submitBtn.setAttribute('type', 'submit')
 	submitBtn.setAttribute('id', 'submit')
 	submitBtn.setAttribute('value', 'submit')
+
 	const cancelBtn = document.createElement('input')
 	cancelBtn.classList.add('modal-button')
 	cancelBtn.setAttribute('type', 'submit')
@@ -43,10 +49,64 @@ export default function createModal(type) {
 	//put it all together!
 	form.append(paraTitle, inputPara, btnDiv)
 	modal.appendChild(form)
+	const modalInput = modal.querySelectorAll('select, input, textarea')
+	submitBtn.addEventListener('click', (e) => {
+		// Prevent default button behavior
+		e.preventDefault()
+		//fetch project
+		const findProject = (title) => {
+			return projectsArray.find((project) => project.title === title)
+		}
+		// Send input data
+		console.log(modalInput)
+		// For finding the relevant project object
+		const projectTitle = modalInput[0].value.trim()
+		const title = modalInput[1].value.trim()
+		const description = modalInput[2].value.trim()
+		const dueDate = modalInput[3].value.trim()
+		const priority = modalInput[4].checked
+		const notes = modalInput[5].value.trim()
+		const checkList = modalInput[6].value.trim()
+
+		const todo = new ToDo(
+			title,
+			description,
+			dueDate,
+			priority,
+			notes,
+			checkList
+		)
+		todo.printToDo()
+		const project = findProject(projectTitle)
+		if (project) {
+			project.addToProject(todo)
+			updateTree(projectsArray)
+			console.log(projectsArray)
+		} else {
+			console.error(`Project with title: ${projectTitle} not found in array.`)
+		}
+		modal.close()
+	})
 }
 
 function createTodoModal(inputPara) {
 	// input para will hold all input elements for easy appending later
+
+	//Project input
+	const projectCont = document.createElement('div')
+	const projectLabel = document.createElement('label')
+	projectLabel.setAttribute('for', 'projectSelect')
+	projectLabel.textContent = 'Active project: '
+	const projectSelect = document.createElement('select')
+	projectSelect.setAttribute('name', 'select-Project')
+	projectSelect.setAttribute('id', 'select-Project')
+	projectsArray.forEach((project) => {
+		const projectItem = document.createElement('option')
+		projectItem.setAttribute('value', project.title)
+		projectItem.textContent = project.title
+		projectSelect.appendChild(projectItem)
+	})
+	projectCont.append(projectLabel, projectSelect)
 
 	// Title input
 	const titleCont = document.createElement('div')
@@ -109,6 +169,7 @@ function createTodoModal(inputPara) {
 
 	// Put it all together
 	inputPara.append(
+		projectCont,
 		titleCont,
 		descCont,
 		dueDateCont,

@@ -23,9 +23,9 @@
     >div{
         width:100%; 
         display:flex; 
-        justify-content: 
-        space-between; 
+        justify-content: space-between; 
         align-items: center;
+        >select{width:53%; background-color: white;}
         >input{width:50%;}
         >textarea{
             width: 50%;

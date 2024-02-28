@@ -48,7 +48,7 @@ export default class ToDo {
 		this.title = checkTitle(title)
 		this.desc = checkDesc(desc)
 		this.dueDate = formatDate(dueDate)
-		this.priority = isPriority(priority)
+		this.priority = priority
 		this.notes = notes
 		//checkList is a array, perfect.
 		this.checklist = checkList
@@ -85,10 +85,10 @@ function formatDate(dueDate) {
 	return format(new Date(arr[2], arr[1], arr[0]), 'dd-MM-yyyy')
 }
 
-function isPriority(priority) {
+/* function isPriority(priority) {
 	if (priority == 'yes') return true
 	else return false
-}
+} */
 
 function createChecklist(checkList) {
 	//reserved for UI implementation?

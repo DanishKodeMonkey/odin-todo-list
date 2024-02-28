@@ -1,7 +1,7 @@
 import './style.css'
-import ToDo from './modules/todos'
 import project from './modules/projects'
 import createModal from './modules/modals'
+let projectsArray = []
 
 // App function should handle evoking DOM elements onscreen.
 function app() {
@@ -15,11 +15,6 @@ function app() {
 		createModal(e.target.getAttribute('type'))
 		modal.showModal()
 	})
-
-	//Testing, remove after styling
-	addTodoBtn.click()
-
-	let projectsArray = []
 	// Check if a project exist, if not, create a project.
 	// Uses a pre set blank one here until persistence is established
 	init(projectsArray)
@@ -31,10 +26,17 @@ app()
 function updateTree(projectsArray) {
 	console.log('updateTree triggered')
 	const display = document.querySelector('.overview-tree')
+	// Clear existing DOM for new version
+	display.textContent = ''
+
+	// Create new DOM content
+	const title = document.createElement('div')
+	title.classList.add('title')
+	title.textContent = 'PROJECTS'
+
 	const treeRender = document.createElement('ul')
 	treeRender.classList.add('overview')
 	projectsArray.forEach((project) => {
-		console.log(project)
 		// add a project sub-ul element to tree root
 		const treeProject = document.createElement('li')
 		treeProject.classList.add('overview-project')
@@ -49,7 +51,7 @@ function updateTree(projectsArray) {
 		treeRender.appendChild(treeProject)
 		return treeRender
 	})
-	display.appendChild(treeRender)
+	display.append(title, treeRender)
 }
 
 // Page initialiser, initialise resources.
@@ -63,6 +65,7 @@ function init(projectsArray) {
 	// update DOM tree
 	updateTree(projectsArray)
 }
+export { projectsArray, updateTree }
 // Sim tests
 /* let test = new ToDo(
 	'title',
