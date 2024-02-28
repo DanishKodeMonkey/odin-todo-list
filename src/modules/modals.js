@@ -1,7 +1,5 @@
 import './modals.css'
-import { projectsArray, updateTree } from '../index'
-import ToDo from './todos'
-import project from './projects'
+import { projectsArray, updateProjectsArray } from '../index'
 
 export default function createModal(type) {
 	// Fetch modal element from DOM
@@ -56,60 +54,14 @@ export default function createModal(type) {
 	// Submit button
 	// Fetch input values
 	let modalInput = modal.querySelectorAll('select, input, textarea')
+	const inputType = inputPara.getAttribute('type')
 
 	// Add event listener to submit button.
 	submitBtn.addEventListener('click', (e) => {
+		// send input values and inputType (project or todo?) to processing
 		e.preventDefault()
-		console.log(modalInput.value)
-		console.log('inputPara type' + inputPara.getAttribute('type'))
-		const inputType = inputPara.getAttribute('type')
-		/* 		// Prevent default button behavior
-		e.preventDefault() */
-		// function to fetch project object from array
-		if (inputType === 'todo') {
-			const findProject = (title) => {
-				return projectsArray.find((project) => project.title === title)
-			}
-
-			// Fetch input data from modalInput
-			const projectTitle = modalInput[0].value.trim()
-			const title = modalInput[1].value.trim()
-			const description = modalInput[2].value.trim()
-			const dueDate = modalInput[3].value.trim()
-			const priority = modalInput[4].checked
-			const notes = modalInput[5].value.trim()
-			const checkList = modalInput[6].value.trim()
-
-			// Create todo object
-			const todo = new ToDo(
-				title,
-				description,
-				dueDate,
-				priority,
-				notes,
-				checkList
-			)
-			// fetch project object from title
-			const selectedProject = findProject(projectTitle)
-			if (selectedProject) {
-				selectedProject.addToProject(todo)
-				updateTree(projectsArray)
-				modal.close()
-			} else {
-				console.error(`Project with title: ${projectTitle} not found in array.`)
-			}
-		} else if (inputType === 'project') {
-			const projectName = modalInput[0].value.trim()
-
-			const newProject = new project(projectName)
-
-			projectsArray.push(newProject)
-			console.log(projectsArray)
-			updateTree(projectsArray)
-			modal.close()
-		}
-
-		// done, close modal
+		updateProjectsArray(inputType, modalInput)
+		modal.close()
 	})
 
 	// Cancel button
@@ -193,14 +145,14 @@ function createTodoModal(inputPara) {
 
 	notesCont.append(notesLabel, notesInput)
 
-	// checklists(rest)
+	/* 	// checklists(rest)
 	const checklistCont = document.createElement('div')
 	const checklistLabel = document.createElement('label')
 	checklistLabel.setAttribute('for', 'checklistInput')
 	checklistLabel.textContent = 'Checklist: '
 	const checklistInput = document.createElement('input')
 	setInputAttributes(checklistInput, 'checklist', 'text')
-	checklistCont.append(checklistLabel, checklistInput)
+	checklistCont.append(checklistLabel, checklistInput) */
 
 	// Put it all together
 	inputPara.append(
@@ -209,8 +161,8 @@ function createTodoModal(inputPara) {
 		descCont,
 		dueDateCont,
 		priorityCont,
-		notesCont,
-		checklistCont
+		notesCont
+		/* 		checklistCont */
 	)
 }
 

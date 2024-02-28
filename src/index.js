@@ -1,5 +1,6 @@
 import './style.css'
 import project from './modules/projects'
+import ToDo from './modules/todos'
 import createModal from './modules/modals'
 let projectsArray = []
 
@@ -15,16 +16,61 @@ function app() {
 		createModal(e.target.getAttribute('type'))
 		modal.showModal()
 	})
+	// Page initialiser
 	// Check if a project exist, if not, create a project.
-	// Uses a pre set blank one here until persistence is established
+	// Uses a pre set blank array here until persistence is established
+	init()
 }
 
 app()
-init(projectsArray)
+
+function updateProjectsArray(inputType, modalInput) {
+	if (inputType === 'todo') {
+		const findProject = (title) => {
+			return projectsArray.find((project) => project.title === title)
+		}
+
+		// Fetch input data from modalInput
+		const projectTitle = modalInput[0].value.trim()
+		const title = modalInput[1].value.trim()
+		const description = modalInput[2].value.trim()
+		const dueDate = modalInput[3].value.trim()
+		const priority = modalInput[4].checked
+		const notes = modalInput[5].value.trim()
+		/* 			const checkList = modalInput[6].value.trim() */
+
+		// Create todo object
+		const todo = new ToDo(
+			title,
+			description,
+			dueDate,
+			priority,
+			notes
+			/* 				checkList */
+		)
+		// fetch project object from title
+		const selectedProject = findProject(projectTitle)
+		if (selectedProject) {
+			selectedProject.addToProject(todo)
+			updateTree(projectsArray)
+		} else {
+			console.error(`Project with title: ${projectTitle} not found in array.`)
+		}
+	} else if (inputType === 'project') {
+		const projectName = modalInput[0].value.trim()
+
+		const newProject = new project(projectName)
+
+		projectsArray.push(newProject)
+		console.log(projectsArray)
+		updateTree(projectsArray)
+	}
+}
 
 // Function for updating the overview tree on UI
 function updateTree(projectsArray) {
-	console.log('updateTree triggered')
+	console.log('updateTree triggered! Array received:')
+	console.log(projectsArray)
 	const display = document.querySelector('.overview-tree')
 	// Clear existing DOM for new version
 	display.textContent = ''
@@ -55,7 +101,8 @@ function updateTree(projectsArray) {
 }
 
 // Page initialiser, initialise resources.
-function init(projectsArray) {
+function init() {
+	console.log('initialiser triggered')
 	if (projectsArray.length === 0) {
 		console.log('projectsArray is empty. Creating default array')
 		let defaultProject = new project()
@@ -65,7 +112,7 @@ function init(projectsArray) {
 	// update DOM tree
 	updateTree(projectsArray)
 }
-export { projectsArray, updateTree }
+export { projectsArray, updateProjectsArray }
 // Sim tests
 /* let test = new ToDo(
 	'title',
