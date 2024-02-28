@@ -49,6 +49,7 @@ function createTodoModal(inputPara) {
 	// input para will hold all input elements for easy appending later
 
 	// Title input
+	const titleCont = document.createElement('div')
 	const titleLabel = document.createElement('label')
 	titleLabel.setAttribute('for', 'titleInput')
 	titleLabel.textContent = 'Title: '
@@ -57,59 +58,63 @@ function createTodoModal(inputPara) {
 	// add extra attribute on this one so it's the first input field focussed
 	titleInput.setAttribute('autofocus', '')
 	// package element
-	titleLabel.appendChild(titleInput)
+	titleCont.append(titleLabel, titleInput)
 
 	// description input
+	const descCont = document.createElement('div')
 	const descriptionLabel = document.createElement('label')
 	descriptionLabel.setAttribute('for', 'descriptionInput')
 	descriptionLabel.textContent = 'Description: '
 	const descriptionInput = document.createElement('input')
 	setInputAttributes(descriptionInput, 'description', 'text')
-	descriptionLabel.appendChild(descriptionInput)
+	descCont.append(descriptionLabel, descriptionInput)
 
 	// dueDate input
+	const dueDateCont = document.createElement('div')
 	const dueDateLabel = document.createElement('label')
 	dueDateLabel.setAttribute('for', 'dueDateInput')
 	dueDateLabel.textContent = 'Due date: '
 	const dueDateInput = document.createElement('input')
 	setInputAttributes(dueDateInput, 'dueDate', 'date')
-	dueDateLabel.appendChild(dueDateInput)
+	dueDateCont.append(dueDateLabel, dueDateInput)
 
 	// priority
+	const priorityCont = document.createElement('div')
 	const priorityLabel = document.createElement('label')
 	priorityLabel.setAttribute('for', 'priorityInput')
 	priorityLabel.textContent = 'Priority: '
 	const priorityInput = document.createElement('input')
 	setInputAttributes(priorityInput, 'priority', 'checkbox')
-	priorityLabel.appendChild(priorityInput)
+	priorityCont.append(priorityLabel, priorityInput)
 
 	// Notes
+	const notesCont = document.createElement('div')
 	const notesLabel = document.createElement('label')
 	notesLabel.setAttribute('for', 'notesInput')
 	notesLabel.textContent = 'Notes: '
 	const notesInput = document.createElement('textarea')
 	setInputAttributes(notesInput, 'notes', 'textArea')
 	// textArea specific attributes
-	notesInput.setAttribute('rows', '4')
-	notesInput.setAttribute('cols', '10')
-	notesLabel.appendChild(notesInput)
+
+	notesCont.append(notesLabel, notesInput)
 
 	// checklists(rest)
+	const checklistCont = document.createElement('div')
 	const checklistLabel = document.createElement('label')
 	checklistLabel.setAttribute('for', 'checklistInput')
 	checklistLabel.textContent = 'Checklist: '
 	const checklistInput = document.createElement('input')
 	setInputAttributes(checklistInput, 'checklist', 'text')
-	checklistLabel.appendChild(checklistInput)
+	checklistCont.append(checklistLabel, checklistInput)
 
 	// Put it all together
 	inputPara.append(
-		titleLabel,
-		descriptionLabel,
-		dueDateLabel,
-		priorityLabel,
-		notesLabel,
-		checklistLabel
+		titleCont,
+		descCont,
+		dueDateCont,
+		priorityCont,
+		notesCont,
+		checklistCont
 	)
 }
 

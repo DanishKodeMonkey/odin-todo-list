@@ -6,6 +6,7 @@
     background-color: cadetblue;
     display: flexbox;
     flex-direction: column;
+    width: 20vw;
 }
 .header{
     text-align: center;
@@ -19,6 +20,29 @@
     flex-direction: column;
     justify-content: space-evenly;
     align-items: center;
-    text-align: left;
-    >label{text-align: left;}
+    >div{
+        width:100%; 
+        display:flex; 
+        justify-content: 
+        space-between; 
+        align-items: center;
+        >input{width:50%;}
+        >textarea{
+            width: 50%;
+            height: 50px;
+            resize: none;
+        }
+        >#project-priority{
+            width:14px;
+            margin-right: 48%;
+        }
+    }
+
+}
+.modal-button{
+    width:48%;
+    background-color: silver;
+    border-radius: 8px;
+    margin: 1%;
+    font-size: 1.2vw;
 }
