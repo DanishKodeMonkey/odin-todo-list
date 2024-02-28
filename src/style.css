@@ -88,6 +88,9 @@ main{
     align-items: left;
     text-align:left;
     >.overview-project{
+        display:flex;
+        flex-direction: column;
+        justify-content: space-between;
         background-color: rgb(61, 61, 61);
         list-style:circle inside none;
         margin-bottom:5px;
@@ -95,7 +98,13 @@ main{
         border-bottom: 2px solid black;
         font-size: 100%;
         color: rgb(255, 255, 255);
+        >div{
+            display:flex; 
+            justify-content: space-between;
+        }
         >.overview-todo{
+            display:flex;
+            justify-content: space-between;
             background-color: silver;
             padding: 0 10%;
             list-style: disc inside none;
@@ -105,6 +114,21 @@ main{
             color: blue;
         }
     }
+}
+.delBtn{
+    scale: 80%;
+    border-radius: 10px;
+    text-align: center;
+    background-color: rgb(199, 0, 0);
+    color:whitesmoke;
+    transition: 100ms ease-in-out;
+}
+.delBtn:hover{
+    background-color: red;
+}
+.delBtn:active{
+    background-color: brown;
+    color: grey;
 }
 
 .toolbar{

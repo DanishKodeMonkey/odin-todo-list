@@ -82,20 +82,39 @@ function updateTree(projectsArray) {
 
 	const treeRender = document.createElement('ul')
 	treeRender.classList.add('overview')
-	projectsArray.forEach((project) => {
+	projectsArray.forEach((project, projectIndex) => {
 		// add a project sub-ul element to tree root
 		const treeProject = document.createElement('li')
 		treeProject.classList.add('overview-project')
-		treeProject.textContent = project.title
+		const projectTitle = document.createElement('div')
+		projectTitle.textContent = project.title
+		const projectDelBtn = document.createElement('button')
+		projectDelBtn.classList.add('delBtn')
+		projectDelBtn.innerHTML = '&#10006'
+		projectDelBtn.addEventListener('click', () => {
+			projectsArray.splice(projectIndex, 1)
+			updateTree(projectsArray)
+		})
+		projectTitle.appendChild(projectDelBtn)
+		treeProject.appendChild(projectTitle)
 		//add todo titles to project as li
-		project.todos.forEach((todos) => {
+		project.todos.forEach((todo, todoIndex) => {
 			const projectTodo = document.createElement('li')
 			projectTodo.classList.add('overview-todo')
-			projectTodo.textContent = todos.title
+			projectTodo.textContent = todo.title
+
+			const todoDelBtn = document.createElement('button')
+			todoDelBtn.classList.add('delBtn')
+			todoDelBtn.innerHTML = '&#10006'
+			todoDelBtn.addEventListener('click', () => {
+				projectsArray[projectIndex].todos.splice(todoIndex, 1)
+				updateTree(projectsArray)
+			})
+
+			projectTodo.appendChild(todoDelBtn)
 			treeProject.appendChild(projectTodo)
 		})
 		treeRender.appendChild(treeProject)
-		return treeRender
 	})
 	display.append(title, treeRender)
 }
