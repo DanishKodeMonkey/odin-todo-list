@@ -17,10 +17,10 @@ function app() {
 	})
 	// Check if a project exist, if not, create a project.
 	// Uses a pre set blank one here until persistence is established
-	init(projectsArray)
 }
 
 app()
+init(projectsArray)
 
 // Function for updating the overview tree on UI
 function updateTree(projectsArray) {
