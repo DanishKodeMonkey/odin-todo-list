@@ -11,6 +11,7 @@
 			defer></script>
 	</head>
 	<body>
+		<dialog id="modal"></dialog>
 		<header>
 			<div class="banner">
 				<div class="text-bg">
@@ -32,12 +33,20 @@
 			</div>
 		</header>
 		<main>
-			<div class="overview-tree"><div class="title">OVERVIEW TREE</div></div>
+			<div class="overview-tree"><div class="title">PROJECTS</div></div>
 			<div class="toolbar">
-				<span>Toolbar</span>
-				<div class="toolbar"></div>
-				<button class="toolbar-button">Add project</button>
-				<button class="toolbar-button">Add todo</button>
+				<button
+					class="toolbar-button"
+					type="project"
+					id="button-project">
+					Add project
+				</button>
+				<button
+					class="toolbar-button"
+					type="todo"
+					id="button-todo">
+					Add todo
+				</button>
 				<button class="toolbar-button">Save list</button>
 				<button class="toolbar-button">Load list</button>
 			</div>
