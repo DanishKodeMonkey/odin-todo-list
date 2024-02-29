@@ -46,7 +46,7 @@ import { format } from 'date-fns'
 export default class ToDo {
 	constructor(title, desc, dueDate, priority, notes /* , ...checkList */) {
 		this.title = checkTitle(title)
-		this.desc = checkDesc(desc)
+		this.description = checkDesc(desc)
 		this.dueDate = formatDate(dueDate)
 		this.priority = priority
 		this.notes = notes
@@ -69,7 +69,7 @@ export default class ToDo {
 
 function checkTitle(title) {
 	// Would also include sanitisation
-	if (title.length <= 10) return title
+	if (title.length <= 20) return title
 	else return 'Title too long'
 }
 
@@ -81,13 +81,4 @@ function checkDesc(desc) {
 
 function formatDate(dueDate) {
 	return format(new Date(dueDate), 'dd-MM-yyyy')
-}
-
-/* function isPriority(priority) {
-	if (priority == 'yes') return true
-	else return false
-} */
-
-function createChecklist(checkList) {
-	//reserved for UI implementation?
 }

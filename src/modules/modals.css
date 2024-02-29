@@ -7,7 +7,13 @@
     display: flexbox;
     flex-direction: column;
     width: 20vw;
+    animation: 0.3s animatetop;
 }
+@keyframes animatetop{
+    from{top: -300px; opacity: 0}
+    to{top:0; opacity: 1}
+}
+
 .header{
     text-align: center;
     font-size: 2vw;

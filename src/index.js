@@ -18,7 +18,65 @@ let projectsArray = []
 				clicking outside the expanded card should close the card again
 clicking any other project in the project overview, clears the display, and creates a new one 
  */
+// initialise projectsarray
+init()
+const render = (proj) => {
+	console.log('render triggered')
+	let currentProject = projectsArray[0]
+
+	console.log('Rendering project: ')
+	console.log(currentProject)
+	// Fetch relevant DOM (content area)
+	const display = document.querySelector('.content-container')
+	display.textContent = ''
+
+	// Create new DOM elements for project
+	const projRender = document.createElement('div')
+	projRender.classList.add('project-render')
+
+	const projTitle = document.createElement('h1')
+	projTitle.classList.add('project-render-title')
+	projTitle.textContent = currentProject.title
+	projRender.appendChild(projTitle)
+	display.appendChild(projRender)
+
+	// Create dom elements for projects todos
+	const todosContainer = document.createElement('div')
+	todosContainer.classList.add('todos-container')
+
+	const todos = currentProject.todos
+	console.log(todos)
+	todos.forEach((todo) => {
+		const todoCard = document.createElement('div')
+		todoCard.classList.add('todo-card')
+		todosContainer.appendChild(todoCard)
+
+		for (const [key, value] of Object.entries(todo)) {
+			console.log(key, value)
+			const todoKeyValueCont = document.createElement('div')
+			todoKeyValueCont.classList.add('todo-key-value-cont')
+
+			const todoKey = document.createElement('span')
+			todoKey.classList.add('todo-key')
+			todoKey.textContent = `${key.toUpperCase()}:`
+			const todoValue = document.createElement('p')
+			todoValue.classList.add('todo-value')
+			todoValue.textContent = value
+			todoKeyValueCont.append(todoKey, todoValue)
+			todoCard.appendChild(todoKeyValueCont)
+		}
+	})
+
+	projRender.appendChild(todosContainer)
+	// Define current project, starting at index 0(default)
+}
+render()
 // toolbar
+function createToDoCard(todo) {
+	const div = document.createElement('div')
+	div.classList.add('todo-card')
+	todo.forEach(value)
+}
 
 const addTodoBtn = document.querySelector('#button-todo')
 addTodoBtn.addEventListener('click', (e) => {
@@ -60,6 +118,7 @@ function updateProjectsArray(inputType, modalInput) {
 		if (selectedProject) {
 			selectedProject.addToProject(todo)
 			updateTree(projectsArray)
+			render(projectTitle)
 		} else {
 			console.error(`Project with title: ${projectTitle} not found in array.`)
 		}
@@ -143,6 +202,51 @@ function init() {
 	if (projectsArray.length === 0) {
 		console.log('projectsArray is empty. Creating default array')
 		let defaultProject = new project()
+
+		//TEST START
+		let testTodo = new ToDo(
+			'The test todo',
+			'The test todo is a todo for a project test',
+			'2024-02-03',
+			'true',
+			'There are so many notes on this man you have no idea its like ho so many notes I cant even holy shit'
+		)
+		let testTodo2 = new ToDo(
+			'The test todo2',
+			'The test todo is a todo for a project test2',
+			'2024-02-03',
+			'true2',
+			'There are so many note2s on this man you have no idea its like ho so many notes I cant even holy shit'
+		)
+		let testTodo3 = new ToDo(
+			'The test todo2',
+			'The test todo is a todo for a project test2',
+			'2024-02-03',
+			'true2',
+			'There are so many note2s on this man you have no idea its like ho so many notes I cant even holy shit'
+		)
+		let testTodo4 = new ToDo(
+			'The test todo2',
+			'The test todo is a todo for a project test2',
+			'2024-02-03',
+			'true2',
+			'There are so many note2s on this man you have no idea its like ho so many notes I cant even holy shit'
+		)
+		let testTodo5 = new ToDo(
+			'The test todo2',
+			'The test todo is a todo for a project test2',
+			'2024-02-03',
+			'true2',
+			'There are so many note2s on this man you have no idea its like ho so many notes I cant even holy shit'
+		)
+		defaultProject.addToProject(testTodo)
+		defaultProject.addToProject(testTodo2)
+		defaultProject.addToProject(testTodo3)
+		defaultProject.addToProject(testTodo4)
+		defaultProject.addToProject(testTodo5)
+
+		//TEST END
+
 		projectsArray.push(defaultProject)
 		console.log(`default object created, name: ${defaultProject.title}`)
 	} else console.log(`Array found in projectsArray: ${projectsArray[0].title}`)
@@ -153,21 +257,11 @@ function init() {
 // Page initialiser
 // Check if a project exist, if not, create a project.
 // Uses a pre set blank array here until persistence is established
-init()
+
 export { projectsArray, updateProjectsArray }
 // Sim tests
-/* let test = new ToDo(
-	'title',
-	'descriptionhere',
-	'20-02-2024',
-	'poop',
-	'noted to be notes',
-	'no checklist',
-	'but there is',
-	'butnotruly',
-	'cmontinychecklist',
-	'letsgooo!'
-)
+
+/*
 let test2 = new ToDo(
 	'title2butitswaytoolong',
 	'descriptionheretoo',

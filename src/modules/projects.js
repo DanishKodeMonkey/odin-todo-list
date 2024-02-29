@@ -1,5 +1,5 @@
 export default class project {
-	constructor(title = 'defaulttest') {
+	constructor(title = 'Default') {
 		this.title = title
 		this.todos = []
 	}
