@@ -27,7 +27,7 @@ export default function createModal(type, ...editTodo) {
 		createTodoModal(inputPara)
 	} else if (type === 'project') {
 		createProjectModal(inputPara)
-	} else if (type === 'editTodo') {
+	} else if (type === 'edit Todo') {
 		console.log('triggered edit, ' + inputPara + editTodo)
 		createTodoModal(inputPara, ...editTodo)
 	}

@@ -154,7 +154,7 @@ function createToDoCard(todo, todosContainer) {
 
 function editCard(card) {
 	const values = Object.values(card)
-	createModal('editTodo', values)
+	createModal('edit Todo', values)
 	modal.showModal()
 }
 export { ToDo, createToDoCard }
