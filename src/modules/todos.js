@@ -42,8 +42,7 @@ import { format } from 'date-fns'
         named "createChecklist"
     create form div checklist
     for each argument parsed to constructor(str) */
-
-export default class ToDo {
+class ToDo {
 	constructor(title, desc, dueDate, priority, notes /* , ...checkList */) {
 		this.title = checkTitle(title)
 		this.description = checkDesc(desc)
@@ -82,3 +81,69 @@ function checkDesc(desc) {
 function formatDate(dueDate) {
 	return format(new Date(dueDate), 'dd-MM-yyyy')
 }
+
+function createToDoCard(todo, todosContainer) {
+	const todoCard = document.createElement('div')
+	todoCard.classList.add('todo-card', 'hidden-card')
+
+	const toggleCard = () => {
+		if (todoCard.classList.contains('hidden-card')) {
+			showCard()
+		} else {
+			hideCard()
+		}
+	}
+
+	const showCard = () => {
+		todoCard.classList.remove('hidden-card')
+		todoCard.classList.add('show-card')
+		addEditButton()
+	}
+
+	const hideCard = () => {
+		todoCard.classList.add('hidden-card')
+		todoCard.classList.remove('show-card')
+		removeEditButton()
+	}
+
+	const addEditButton = () => {
+		if (!todoCard.classList.contains('edit-button-added')) {
+			const editBtn = document.createElement('button')
+			editBtn.textContent = 'Edit'
+			editBtn.classList.add('card-edit-btn')
+			editBtn.addEventListener('click', () => editCard(todo.title))
+			todoCard.appendChild(editBtn)
+			todoCard.classList.add('edit-button-added')
+		}
+	}
+
+	const removeEditButton = () => {
+		const editBtn = todoCard.querySelector('.card-edit-btn')
+		if (editBtn) {
+			editBtn.remove()
+			todoCard.classList.remove('edit-button-added')
+		}
+	}
+	todoCard.addEventListener('click', toggleCard)
+	todosContainer.appendChild(todoCard)
+
+	for (const [key, value] of Object.entries(todo)) {
+		console.log(key, value)
+		const todoKeyValueCont = document.createElement('div')
+		todoKeyValueCont.classList.add('todo-key-value-cont')
+
+		const todoKey = document.createElement('span')
+		todoKey.classList.add('todo-key')
+		todoKey.textContent = `${key.toUpperCase()}:`
+		const todoValue = document.createElement('p')
+		todoValue.classList.add('todo-value')
+		todoValue.textContent = value
+		todoKeyValueCont.append(todoKey, todoValue)
+		todoCard.appendChild(todoKeyValueCont)
+	}
+}
+
+function editCard(card) {
+	console.log(card)
+}
+export { ToDo, createToDoCard }

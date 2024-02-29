@@ -1,6 +1,6 @@
 import './style.css'
 import project from './modules/projects'
-import ToDo from './modules/todos'
+import { ToDo, createToDoCard } from './modules/todos'
 import createModal from './modules/modals'
 // main array containing all projects and todos (Lets not remove this without due cause yea?)
 let projectsArray = []
@@ -43,28 +43,11 @@ const render = (proj) => {
 	// Create dom elements for projects todos
 	const todosContainer = document.createElement('div')
 	todosContainer.classList.add('todos-container')
-
+	//
 	const todos = currentProject.todos
 	console.log(todos)
 	todos.forEach((todo) => {
-		const todoCard = document.createElement('div')
-		todoCard.classList.add('todo-card')
-		todosContainer.appendChild(todoCard)
-
-		for (const [key, value] of Object.entries(todo)) {
-			console.log(key, value)
-			const todoKeyValueCont = document.createElement('div')
-			todoKeyValueCont.classList.add('todo-key-value-cont')
-
-			const todoKey = document.createElement('span')
-			todoKey.classList.add('todo-key')
-			todoKey.textContent = `${key.toUpperCase()}:`
-			const todoValue = document.createElement('p')
-			todoValue.classList.add('todo-value')
-			todoValue.textContent = value
-			todoKeyValueCont.append(todoKey, todoValue)
-			todoCard.appendChild(todoKeyValueCont)
-		}
+		createToDoCard(todo, todosContainer)
 	})
 
 	projRender.appendChild(todosContainer)
@@ -72,11 +55,6 @@ const render = (proj) => {
 }
 render()
 // toolbar
-function createToDoCard(todo) {
-	const div = document.createElement('div')
-	div.classList.add('todo-card')
-	todo.forEach(value)
-}
 
 const addTodoBtn = document.querySelector('#button-todo')
 addTodoBtn.addEventListener('click', (e) => {

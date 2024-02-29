@@ -1,7 +1,7 @@
 import './modals.css'
 import { projectsArray, updateProjectsArray } from '../index'
 
-export default function createModal(type) {
+function createModal(type) {
 	// Fetch modal element from DOM
 	const modal = document.querySelector('#modal')
 	modal.textContent = ''
