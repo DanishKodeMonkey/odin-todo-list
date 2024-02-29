@@ -80,9 +80,7 @@ function checkDesc(desc) {
 }
 
 function formatDate(dueDate) {
-	const arr = dueDate.split(/-/)
-
-	return format(new Date(arr[2], arr[1], arr[0]), 'dd-MM-yyyy')
+	return format(new Date(dueDate), 'dd-MM-yyyy')
 }
 
 /* function isPriority(priority) {
