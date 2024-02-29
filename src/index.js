@@ -68,6 +68,9 @@ addProjectBtn.addEventListener('click', (e) => {
 })
 
 function updateProjectsArray(inputType, modalInput) {
+	if (inputType === 'todo-edit') {
+		console.log(inputType, modalInput)
+	}
 	if (inputType === 'todo') {
 		const findProject = (title) => {
 			return projectsArray.find((project) => project.title === title)
@@ -183,6 +186,7 @@ function init() {
 
 		//TEST START
 		let testTodo = new ToDo(
+			'Default',
 			'The test todo',
 			'The test todo is a todo for a project test',
 			'2024-02-03',
@@ -190,6 +194,7 @@ function init() {
 			'There are so many notes on this man you have no idea its like ho so many notes I cant even holy shit'
 		)
 		let testTodo2 = new ToDo(
+			'Default',
 			'The test todo2',
 			'The test todo is a todo for a project test2',
 			'2024-02-03',
@@ -197,6 +202,7 @@ function init() {
 			'There are so many note2s on this man you have no idea its like ho so many notes I cant even holy shit'
 		)
 		let testTodo3 = new ToDo(
+			'Default',
 			'The test todo2',
 			'The test todo is a todo for a project test2',
 			'2024-02-03',
@@ -204,6 +210,7 @@ function init() {
 			'There are so many note2s on this man you have no idea its like ho so many notes I cant even holy shit'
 		)
 		let testTodo4 = new ToDo(
+			'Default',
 			'The test todo2',
 			'The test todo is a todo for a project test2',
 			'2024-02-03',
@@ -211,6 +218,7 @@ function init() {
 			'There are so many note2s on this man you have no idea its like ho so many notes I cant even holy shit'
 		)
 		let testTodo5 = new ToDo(
+			'Default',
 			'The test todo2',
 			'The test todo is a todo for a project test2',
 			'2024-02-03',

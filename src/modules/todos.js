@@ -1,5 +1,5 @@
 import { format } from 'date-fns'
-
+import createModal from './modals'
 // Class module to export ,keep in mind it should only create the class objects.
 // Keep type checks, as seperate functions
 
@@ -43,7 +43,15 @@ import { format } from 'date-fns'
     create form div checklist
     for each argument parsed to constructor(str) */
 class ToDo {
-	constructor(title, desc, dueDate, priority, notes /* , ...checkList */) {
+	constructor(
+		project,
+		title,
+		desc,
+		dueDate,
+		priority,
+		notes /* , ...checkList */
+	) {
+		this.project = project
 		this.title = checkTitle(title)
 		this.description = checkDesc(desc)
 		this.dueDate = formatDate(dueDate)
@@ -54,6 +62,7 @@ class ToDo {
 	}
 	printToDo() {
 		console.log('====================================================')
+		console.log(`assigned project: ${this.project}`)
 		console.log(`title: ${this.title},`)
 		console.log(`description: ${this.desc},`)
 		console.log(`due date: ${this.dueDate},`)
@@ -111,7 +120,7 @@ function createToDoCard(todo, todosContainer) {
 			const editBtn = document.createElement('button')
 			editBtn.textContent = 'Edit'
 			editBtn.classList.add('card-edit-btn')
-			editBtn.addEventListener('click', () => editCard(todo.title))
+			editBtn.addEventListener('click', () => editCard(todo))
 			todoCard.appendChild(editBtn)
 			todoCard.classList.add('edit-button-added')
 		}
@@ -144,6 +153,8 @@ function createToDoCard(todo, todosContainer) {
 }
 
 function editCard(card) {
-	console.log(card)
+	const values = Object.values(card)
+	createModal('editTodo', values)
+	modal.showModal()
 }
 export { ToDo, createToDoCard }

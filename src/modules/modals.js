@@ -1,7 +1,7 @@
 import './modals.css'
 import { projectsArray, updateProjectsArray } from '../index'
 
-function createModal(type) {
+export default function createModal(type, ...editTodo) {
 	// Fetch modal element from DOM
 	const modal = document.querySelector('#modal')
 	modal.textContent = ''
@@ -27,6 +27,9 @@ function createModal(type) {
 		createTodoModal(inputPara)
 	} else if (type === 'project') {
 		createProjectModal(inputPara)
+	} else if (type === 'editTodo') {
+		console.log('triggered edit, ' + inputPara + editTodo)
+		createTodoModal(inputPara, ...editTodo)
 	}
 
 	//Modal buttons
@@ -75,11 +78,28 @@ function createModal(type) {
 	})
 }
 
-function createTodoModal(inputPara) {
-	// inputPara will hold all input elements for easy appending later
-	// assign type attribute for later processing
+function createTodoModal(inputPara, editTodo) {
+	// Establish input variables
 	inputPara.setAttribute('type', 'todo')
+	// Check if this is an edit operation, or new operation
+	let editOperation = false
+	if (editTodo !== undefined) {
+		console.log('triggered edit operation ' + Object.values(arguments))
+		editOperation = true
+
+		inputPara.setAttribute('type', 'todo-edit')
+		/* 		projectSelect.value = editTodo[0]
+		titleInput.value = editTodo[1]
+		descriptionInput.value = editTodo[2]
+		dueDateInput.value = editTodo[3]
+
+		priorityInput.checked = editTodo[4] === 'true'
+		notesInput.value = editTodo[5] */
+	}
+	// inputPara will hold all input elements for easy appending later
+
 	//Project input
+	console.log('initiating modal' + editOperation)
 	const projectCont = document.createElement('div')
 	const projectLabel = document.createElement('label')
 	projectLabel.setAttribute('for', 'projectSelect')
@@ -93,6 +113,10 @@ function createTodoModal(inputPara) {
 		projectItem.textContent = project.title
 		projectSelect.appendChild(projectItem)
 	})
+	//if edit operation, select project.
+	if (editOperation) {
+		projectSelect.value = editTodo[0]
+	}
 	projectCont.append(projectLabel, projectSelect)
 
 	// Title input
@@ -101,6 +125,9 @@ function createTodoModal(inputPara) {
 	titleLabel.setAttribute('for', 'titleInput')
 	titleLabel.textContent = 'Title: '
 	const titleInput = document.createElement('input')
+	if (editOperation) {
+		titleInput.value = editTodo[1]
+	}
 	setInputAttributes(titleInput, 'title', 'text')
 	// add extra attribute on this one so it's the first input field focussed
 	titleInput.setAttribute('autofocus', '')
@@ -113,6 +140,9 @@ function createTodoModal(inputPara) {
 	descriptionLabel.setAttribute('for', 'descriptionInput')
 	descriptionLabel.textContent = 'Description: '
 	const descriptionInput = document.createElement('input')
+	if (editOperation) {
+		descriptionInput.value = editTodo[2]
+	}
 	setInputAttributes(descriptionInput, 'description', 'text')
 	descCont.append(descriptionLabel, descriptionInput)
 
@@ -123,6 +153,11 @@ function createTodoModal(inputPara) {
 	dueDateLabel.textContent = 'Due date: '
 	const dueDateInput = document.createElement('input')
 	setInputAttributes(dueDateInput, 'dueDate', 'date')
+	if (editOperation) {
+		const originalDate = new Date(editTodo[3])
+		const formattedDate = originalDate.toISOString().split('T')[0]
+		dueDateInput.value = formattedDate
+	}
 	dueDateCont.append(dueDateLabel, dueDateInput)
 
 	// priority
@@ -131,6 +166,9 @@ function createTodoModal(inputPara) {
 	priorityLabel.setAttribute('for', 'priorityInput')
 	priorityLabel.textContent = 'Priority: '
 	const priorityInput = document.createElement('input')
+	if (editOperation) {
+		priorityInput.checked = editTodo[4] === 'true'
+	}
 	setInputAttributes(priorityInput, 'priority', 'checkbox')
 	priorityCont.append(priorityLabel, priorityInput)
 
@@ -140,6 +178,9 @@ function createTodoModal(inputPara) {
 	notesLabel.setAttribute('for', 'notesInput')
 	notesLabel.textContent = 'Notes: '
 	const notesInput = document.createElement('textarea')
+	if (editOperation) {
+		notesInput.value = editTodo[5]
+	}
 	setInputAttributes(notesInput, 'notes', 'textArea')
 	// textArea specific attributes
 
@@ -175,8 +216,6 @@ function createProjectModal(inputPara) {
 	titleLabel.textContent = 'Title: '
 	const titleInput = document.createElement('input')
 	setInputAttributes(titleInput, 'title', 'text')
-	// add extra attribute on this one so it's the first input field focussed
-	titleInput.setAttribute('autofocus', '')
 	// package element
 	titleLabel.appendChild(titleInput)
 	// put it together
