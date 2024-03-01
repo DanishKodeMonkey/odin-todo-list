@@ -196,6 +196,7 @@ function updateTree(projectsArray) {
 			todoDelBtn.addEventListener('click', () => {
 				projectsArray[projectIndex].todos.splice(todoIndex, 1)
 				updateTree(projectsArray)
+				render(findProject(project.title))
 			})
 			// put the todo elements together
 			projectTodoTitle.appendChild(todoDelBtn)

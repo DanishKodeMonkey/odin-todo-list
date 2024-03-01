@@ -112,17 +112,20 @@ function createToDoCard(todo, todosContainer) {
 		console.log('showCard trigger: ' + todo)
 		todoCard.classList.remove('hidden-card')
 		todoCard.classList.add('show-card')
+		renderValues('full')
 		addEditButton(todo)
 	}
 
 	const hideCard = () => {
 		todoCard.classList.add('hidden-card')
 		todoCard.classList.remove('show-card')
+		renderValues('mini')
 		removeEditButton()
 	}
 
 	const addEditButton = (todo) => {
-		if (!todoCard.classList.contains('edit-button-added')) {
+		const editBtn = todoCard.querySelector('.card-edit-btn')
+		if (!editBtn) {
 			const editBtn = document.createElement('button')
 			editBtn.textContent = 'Edit'
 			editBtn.classList.add('card-edit-btn')
@@ -131,7 +134,6 @@ function createToDoCard(todo, todosContainer) {
 				editCard(todo)
 			})
 			todoCard.appendChild(editBtn)
-			todoCard.classList.add('edit-button-added')
 		}
 	}
 	const removeEditButton = () => {
@@ -143,20 +145,35 @@ function createToDoCard(todo, todosContainer) {
 	}
 	todoCard.addEventListener('click', toggleCard)
 	todosContainer.appendChild(todoCard)
-	for (const [key, value] of Object.entries(todo)) {
-		/* 	console.log(key, value) */
-		const todoKeyValueCont = document.createElement('div')
-		todoKeyValueCont.classList.add('todo-key-value-cont')
 
-		const todoKey = document.createElement('span')
-		todoKey.classList.add('todo-key')
-		todoKey.textContent = `${key.toUpperCase()}:`
-		const todoValue = document.createElement('p')
-		todoValue.classList.add('todo-value')
-		todoValue.textContent = value
-		todoKeyValueCont.append(todoKey, todoValue)
-		todoCard.appendChild(todoKeyValueCont)
+	function renderValues(state) {
+		todoCard.innerHTML = ''
+		for (const [key, value] of Object.entries(todo)) {
+			if (state !== 'full') {
+				// minimised state triggered
+				if (key !== 'title' && key !== 'dueDate') {
+					continue
+				} //Skip itteration for this state if not title or dueDate
+			}
+			if (key === 'project' || key === 'id') {
+				continue //skip itteration for project title, irrelevant.
+			}
+			// Check if card was already rendered:
+
+			const todoKeyValueCont = document.createElement('div')
+			todoKeyValueCont.classList.add('todo-key-value-cont')
+
+			const todoKey = document.createElement('span')
+			todoKey.classList.add('todo-key')
+			todoKey.textContent = `${key.toUpperCase()}:`
+			const todoValue = document.createElement('p')
+			todoValue.classList.add('todo-value')
+			todoValue.textContent = value
+			todoKeyValueCont.append(todoKey, todoValue)
+			todoCard.appendChild(todoKeyValueCont)
+		}
 	}
+	renderValues('mini')
 }
 // Function for creating unique IDs using a stringified date
 const usedIds = []
