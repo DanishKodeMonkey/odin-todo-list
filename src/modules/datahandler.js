@@ -1,23 +1,8 @@
 import { ToDo } from './todos'
 import project from './projects'
 import { renderDOM, updateTree } from './render'
-import { toolBar } from './render'
 let projectsArray = []
 
-function init() {
-	console.log('initialiser triggered')
-	if (projectsArray.length === 0) {
-		console.log('projectsArray is empty. Creating default array')
-		let defaultProject = new project()
-		projectsArray.push(defaultProject)
-		console.log(`default object created, name: ${defaultProject.title}`)
-	} else console.log(`Array found in projectsArray: ${projectsArray[0].title}`)
-	// update DOM tree
-	console.log(projectsArray)
-	toolBar()
-	renderDOM()
-	updateTree(projectsArray)
-}
 function updateProjectsArray(inputType, modalInput, todoID) {
 	// Fetch input data from modalInput
 	if (inputType === 'todo' || inputType === 'todo-edit') {
@@ -104,4 +89,4 @@ function findProject(projectTitle) {
 	return projectsArray.find((project) => project.title === projectTitle)
 }
 
-export { projectsArray, updateProjectsArray, findProject, init }
+export { projectsArray, updateProjectsArray, findProject }
