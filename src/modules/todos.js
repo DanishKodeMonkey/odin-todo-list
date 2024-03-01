@@ -1,6 +1,5 @@
 import { format } from 'date-fns'
 import createModal from './modals'
-import { projectsArray } from '..'
 // Class module to export ,keep in mind it should only create the class objects.
 // Keep type checks, as seperate functions
 
@@ -91,7 +90,7 @@ function checkDesc(desc) {
 }
 
 function formatDate(dueDate) {
-	return format(new Date(dueDate), 'dd-MM-yyyy')
+	return format(new Date(dueDate), 'MM-dd-yyyy')
 }
 
 // Function for creating ToDo cards for render

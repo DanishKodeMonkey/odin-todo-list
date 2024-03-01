@@ -1,6 +1,6 @@
 import { createToDoCard } from './todos'
 import { projectsArray, findProject } from './datahandler'
-import { init } from '../index'
+import init from '..'
 import createModal from './modals'
 
 // Event listeners for toolbar:

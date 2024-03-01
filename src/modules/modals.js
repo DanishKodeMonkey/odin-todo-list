@@ -1,6 +1,6 @@
 import './modals.css'
 import { projectsArray, updateProjectsArray } from './datahandler'
-import { renderDOM } from './render'
+import { format } from 'date-fns'
 
 export default function createModal(type, ...editTodo) {
 	// Fetch modal element from DOM
@@ -146,7 +146,6 @@ function createTodoModal(inputPara, editTodo) {
 	if (editOperation) {
 		descriptionInput.value = editTodo[2]
 	}
-	console.log(descriptionInput.value)
 	setInputAttributes(descriptionInput, 'description', 'text')
 	descCont.append(descriptionLabel, descriptionInput)
 
@@ -158,9 +157,11 @@ function createTodoModal(inputPara, editTodo) {
 	const dueDateInput = document.createElement('input')
 	setInputAttributes(dueDateInput, 'dueDate', 'date')
 	if (editOperation) {
-		const originalDate = new Date(editTodo[3])
-		const formattedDate = originalDate.toISOString().split('T')[0]
-		dueDateInput.value = formattedDate
+		console.log(editTodo)
+		const originalDate = format(new Date(editTodo[3]), 'yyyy-MM-dd')
+		const formattedDate = originalDate
+		console.log(formattedDate)
+		dueDateInput.value = originalDate
 	}
 	console.log(dueDateLabel, dueDateInput)
 	dueDateCont.append(dueDateLabel, dueDateInput)
