@@ -127,14 +127,7 @@ function createToDoCard(todo, todosContainer) {
 			editBtn.textContent = 'Edit'
 			editBtn.classList.add('card-edit-btn')
 			editBtn.addEventListener('click', () => {
-				const todoToEdit = todo
-				let index = -1
-				console.log('Adding edit button' + todoToEdit)
-				for (let i = 0; i < projectsArray.length; i++) {
-					console.log('Comparing:' + projectsArray[i] + ' with ' + todoToEdit)
-					if (arraysAreEqual(projectsArray[i], todoToEdit)) index = i
-					console.log('Index found: ' + index)
-				}
+				console.log('Sending todo to editCard' + Object.entries(todo))
 				editCard(todo)
 			})
 			todoCard.appendChild(editBtn)

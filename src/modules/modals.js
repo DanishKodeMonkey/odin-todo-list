@@ -58,12 +58,13 @@ export default function createModal(type, ...editTodo) {
 	// Fetch input values
 	let modalInput = modal.querySelectorAll('select, input, textarea')
 	const inputType = inputPara.getAttribute('type')
+	const todoID = inputPara.getAttribute('todoID')
 
 	// Add event listener to submit button.
 	submitBtn.addEventListener('click', (e) => {
 		// send input values and inputType (project or todo?) to processing
 		e.preventDefault()
-		updateProjectsArray(inputType, modalInput)
+		updateProjectsArray(inputType, modalInput, todoID)
 		modal.close()
 	})
 
@@ -88,6 +89,7 @@ function createTodoModal(inputPara, editTodo) {
 		editOperation = true
 
 		inputPara.setAttribute('type', 'todo-edit')
+		inputPara.setAttribute('todoID', editTodo[0])
 		/* 		projectSelect.value = editTodo[0]
 		titleInput.value = editTodo[1]
 		descriptionInput.value = editTodo[2]

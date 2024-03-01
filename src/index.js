@@ -66,9 +66,9 @@ addProjectBtn.addEventListener('click', (e) => {
 	modal.showModal()
 })
 
-function updateProjectsArray(inputType, modalInput) {
+function updateProjectsArray(inputType, modalInput, todoID) {
 	if (inputType === 'todo-edit') {
-		console.log(inputType, modalInput)
+		console.log(todoID, inputType, modalInput)
 		console.log(projectsArray)
 	}
 	if (inputType === 'todo') {
