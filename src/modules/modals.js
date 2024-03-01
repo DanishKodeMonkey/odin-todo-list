@@ -1,5 +1,6 @@
 import './modals.css'
-import { projectsArray, updateProjectsArray } from '../index'
+import { projectsArray, updateProjectsArray } from './datahandler'
+import { renderDOM } from './render'
 
 export default function createModal(type, ...editTodo) {
 	// Fetch modal element from DOM
