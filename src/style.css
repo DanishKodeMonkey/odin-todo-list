@@ -114,6 +114,9 @@ main{
             
             font-size: 80%;
             color: rgb(0, 0, 0);
+            >div>p{
+                margin: 0;
+            }
         }
     }
 }

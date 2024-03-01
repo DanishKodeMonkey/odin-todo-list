@@ -186,9 +186,14 @@ function updateTree(projectsArray) {
 
 		// add todo titles of each project li as sub-li
 		project.todos.forEach((todo, todoIndex) => {
-			const projectTodoTitle = document.createElement('li')
-			projectTodoTitle.classList.add('overview-todo')
-			projectTodoTitle.textContent = todo.title + ' ' + todo.dueDate
+			const projectTodoContainer = document.createElement('li')
+			projectTodoContainer.classList.add('overview-todo')
+			const projectTodoText = document.createElement('div')
+			const projectTodoTitle = document.createElement('p')
+			projectTodoTitle.textContent = todo.title
+			const projectTodoDate = document.createElement('p')
+			projectTodoDate.textContent = todo.dueDate
+			projectTodoText.append(projectTodoTitle, projectTodoDate)
 
 			const todoDelBtn = document.createElement('button')
 			todoDelBtn.classList.add('delBtn')
@@ -199,8 +204,8 @@ function updateTree(projectsArray) {
 				render(findProject(project.title))
 			})
 			// put the todo elements together
-			projectTodoTitle.appendChild(todoDelBtn)
-			treeProject.appendChild(projectTodoTitle)
+			projectTodoContainer.append(projectTodoText, todoDelBtn)
+			treeProject.appendChild(projectTodoContainer)
 		})
 		// attached project elements to tree root
 		treeRender.appendChild(treeProject)
