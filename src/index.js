@@ -18,40 +18,58 @@ let projectsArray = []
 				clicking outside the expanded card should close the card again
 clicking any other project in the project overview, clears the display, and creates a new one 
  */
-// initialise projectsarray
-init()
+
+// Render the content area of the page.
 const render = (proj) => {
-	let currentProject = proj
+	// Set the project to be rendered
+	let currentProject = findProject(proj)
+	// If the current project is not defined, set to first project in array
+	if (currentProject === undefined) {
+		currentProject = projectsArray[0]
+		// If NO projects are present at all, initialise a default project.
+		if (currentProject === undefined) {
+			init()
+			return
+		}
+	}
 
-	console.log('Rendering project: ')
-	console.log(currentProject)
-	// Fetch relevant DOM (content area)
-	const display = document.querySelector('.content-container')
-	display.textContent = ''
+	// Make sure a project exist before trying to render it.
+	if (currentProject) {
+		console.log('Rendering project: ')
+		console.log(currentProject)
+		// Fetch relevant DOM (content area)
+		const display = document.querySelector('.content-container')
+		display.textContent = ''
 
-	// Create new DOM elements for project
-	const projRender = document.createElement('div')
-	projRender.classList.add('project-render')
+		// Create new DOM elements for project
+		const projRender = document.createElement('div')
+		projRender.classList.add('project-render')
 
-	const projTitle = document.createElement('h1')
-	projTitle.classList.add('project-render-title')
-	projTitle.textContent = currentProject.title
-	projRender.appendChild(projTitle)
-	display.appendChild(projRender)
+		const projTitle = document.createElement('h1')
+		projTitle.classList.add('project-render-title')
+		projTitle.textContent = currentProject.title
+		projRender.appendChild(projTitle)
+		display.appendChild(projRender)
 
-	// Create dom elements for projects todos
-	const todosContainer = document.createElement('div')
-	todosContainer.classList.add('todos-container')
-	//
-	const projectTodos = currentProject.todos
-	projectTodos.forEach((todo) => {
-		createToDoCard(todo, todosContainer)
-	})
+		// Create dom elements for projects todos
+		const todosContainer = document.createElement('div')
+		todosContainer.classList.add('todos-container')
+		//
+		const projectTodos = currentProject.todos
+		projectTodos.forEach((todo) => {
+			createToDoCard(todo, todosContainer)
+		})
 
-	projRender.appendChild(todosContainer)
-	// Define current project, starting at index 0(default)
+		projRender.appendChild(todosContainer)
+		// Define current project, starting at index 0(default)
+	}
 }
-render(projectsArray[0])
+/* 
+Page initialiser
+Check if a project exist, if not, create a project.
+Update overview tree and content render area
+*/
+init()
 // toolbar
 
 const addTodoBtn = document.querySelector('#button-todo')
@@ -145,10 +163,7 @@ function updateProjectsArray(inputType, modalInput, todoID) {
 		updateTree(projectsArray)
 	}
 }
-// Function to find a project based on a project title string
-function findProject(projectTitle) {
-	return projectsArray.find((project) => project.title === projectTitle)
-}
+
 // Function for updating the overview tree on UI
 function updateTree(projectsArray) {
 	// Console log for status trigger
@@ -173,6 +188,7 @@ function updateTree(projectsArray) {
 		// add a project li element to tree root render
 		const treeProject = document.createElement('li')
 		treeProject.classList.add('overview-project')
+		treeProject.addEventListener('click', () => render(project.title))
 
 		const projectTitle = document.createElement('div')
 		projectTitle.textContent = project.title
@@ -218,13 +234,14 @@ function updateTree(projectsArray) {
 	display.append(title, treeRender)
 }
 
-// Page initialiser, initialise resources.
+// Page initialiser, initialise default page.
 function init() {
 	console.log('initialiser triggered')
 	if (projectsArray.length === 0) {
 		console.log('projectsArray is empty. Creating default array')
 		let defaultProject = new project()
 
+		/* let secondProject = new project('second project')
 		//TEST START
 		let testTodo = new ToDo(
 			'Default',
@@ -271,59 +288,27 @@ function init() {
 		defaultProject.addToProject(testTodo3)
 		defaultProject.addToProject(testTodo4)
 		defaultProject.addToProject(testTodo5)
-
-		//TEST END
-
+		let testTodo6 = new ToDo(
+			'second project',
+			'keep it going',
+			'The test todo is a todo for a project test2',
+			'2024-02-03',
+			'true2',
+			'There aloooooorem so many notes I cant even holy shit'
+		)
+				secondProject.addToProject(testTodo6)
+				projectsArray.push(secondProject)
+		//TEST END */
 		projectsArray.push(defaultProject)
 		console.log(`default object created, name: ${defaultProject.title}`)
 	} else console.log(`Array found in projectsArray: ${projectsArray[0].title}`)
 	// update DOM tree
+	render()
 	updateTree(projectsArray)
 }
-console.log(projectsArray)
-// Page initialiser
-// Check if a project exist, if not, create a project.
-// Uses a pre set blank array here until persistence is established
 
+// Function to find a project based on a project title string
+function findProject(projectTitle) {
+	return projectsArray.find((project) => project.title === projectTitle)
+}
 export { projectsArray, updateProjectsArray }
-// Sim tests
-
-/*
-let test2 = new ToDo(
-	'title2butitswaytoolong',
-	'descriptionheretoo',
-	'20-02-2024',
-	'yes',
-	'noted to be notes',
-	'checklist'
-)
-
-let test3 = new ToDo(
-	'title3pret',
-	'its pretty',
-	'00-06-2026',
-	'yes',
-	'terep sepre lerem tuti frutti melon scrutti holy moly shifu soley'
-)
-
-// Sim tests
-
-let project1 = new project('test Project')
-let project2 = new project('second project test')
-
-test.printToDo()
-test2.printToDo()
-test3.printToDo()
-
-project1.addToProject(test)
-project1.addToProject(test2)
-
-project2.addToProject(test3)
-
-project1.printProject()
-project2.printProject()
-
-projectsArray.push(project1, project2)
-console.log(projectsArray)
-updateTree(projectsArray)
- */
