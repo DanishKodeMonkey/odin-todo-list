@@ -52,13 +52,13 @@ class ToDo {
 		priority,
 		notes /* , ...checkList */
 	) {
-		this.id = generateUniqueID()
 		this.project = project
 		this.title = checkTitle(title)
 		this.description = checkDesc(desc)
 		this.dueDate = formatDate(dueDate)
 		this.priority = priority
 		this.notes = notes
+		this.id = generateUniqueID()
 		//checkList is a array, perfect.
 		/* 		this.checklist = checkList */
 	}
@@ -143,8 +143,8 @@ function createToDoCard(todo, todosContainer) {
 	}
 	todoCard.addEventListener('click', toggleCard)
 	todosContainer.appendChild(todoCard)
-
 	for (const [key, value] of Object.entries(todo)) {
+		/* 	console.log(key, value) */
 		const todoKeyValueCont = document.createElement('div')
 		todoKeyValueCont.classList.add('todo-key-value-cont')
 
