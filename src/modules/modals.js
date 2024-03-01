@@ -91,13 +91,6 @@ function createTodoModal(inputPara, editTodo) {
 
 		inputPara.setAttribute('type', 'todo-edit')
 		inputPara.setAttribute('todoID', editTodo[6])
-		/* 		projectSelect.value = editTodo[0]
-		titleInput.value = editTodo[1]
-		descriptionInput.value = editTodo[2]
-		dueDateInput.value = editTodo[3]
-
-		priorityInput.checked = editTodo[4] === 'true'
-		notesInput.value = editTodo[5] */
 	}
 	// inputPara will hold all input elements for easy appending later
 
@@ -157,13 +150,12 @@ function createTodoModal(inputPara, editTodo) {
 	const dueDateInput = document.createElement('input')
 	setInputAttributes(dueDateInput, 'dueDate', 'date')
 	if (editOperation) {
-		console.log(editTodo)
 		const originalDate = format(new Date(editTodo[3]), 'yyyy-MM-dd')
 		const formattedDate = originalDate
 		console.log(formattedDate)
 		dueDateInput.value = originalDate
 	}
-	console.log(dueDateLabel, dueDateInput)
+
 	dueDateCont.append(dueDateLabel, dueDateInput)
 
 	// priority

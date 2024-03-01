@@ -1,56 +1,8 @@
 import { format } from 'date-fns'
 import createModal from './modals'
 // Class module to export ,keep in mind it should only create the class objects.
-// Keep type checks, as seperate functions
-
-// Pseudocode todos (ironic I know)
-/* Title should just be title, 
-    can be whatever. 
-      --  Make sure input is sanitised? -- it's an exercise, keep in mind for future project tho
-        Limit to 30 letters? */
-/* desc should be description, 
-    can be whatever. 
-        --Make sure input is sanitised?  -- not part of exercise, but good practice
-        Limit to 100 letters? */
-/* due date 
-    should be type checked, 
-        accept format dd/mm/yyyy?
-        Option1: use function "formatDate() in constructor"
-            function formatDate() should use checkDate() for type check
-            return false if invalid, send to formatDate which returns "invalid format"
-                if statements?
-        Option2: use webpack library date-fns
-    and turned into actual date object?  */
-/* priority
-    should be deterrmined between low, medium and high priority
-        or just boolean ... probably just boolean
-        if priority, make it stand out? */
-/* notes
-    can be whatever
-    max 300 characters
-    sanitise before input */
-/* checklist (mainly during UI stage, 
-            can check if accepts rest arguments tho 
-            and throw into array during logic stage)
-    optional,
-    Logic stage:
-    Accepts remaining arguments
-        parse into constructor that accepts any number of inputs
-        should have method that logs all checkpoints
-    UI stage:
-    accepts remaining arguments, and throws them into constructor
-        named "createChecklist"
-    create form div checklist
-    for each argument parsed to constructor(str) */
 class ToDo {
-	constructor(
-		project,
-		title,
-		desc,
-		dueDate,
-		priority,
-		notes /* , ...checkList */
-	) {
+	constructor(project, title, desc, dueDate, priority, notes) {
 		this.project = project
 		this.title = checkTitle(title)
 		this.description = checkDesc(desc)
@@ -58,8 +10,6 @@ class ToDo {
 		this.priority = priority
 		this.notes = notes
 		this.id = generateUniqueID()
-		//checkList is a array, perfect.
-		/* 		this.checklist = checkList */
 	}
 	printToDo() {
 		console.log('====================================================')
@@ -70,7 +20,6 @@ class ToDo {
 		console.log(`due date: ${this.dueDate},`)
 		console.log(`priority: ${this.priority},`)
 		console.log(`notes: ${this.notes},`)
-		/* 		console.log(`checklist: ${this.checklist}.`) */
 		console.log('====================================================')
 	}
 }
@@ -100,7 +49,6 @@ function createToDoCard(todo, todosContainer) {
 
 	const toggleCard = () => {
 		if (todoCard.classList.contains('hidden-card')) {
-			console.log('ToggleCard trigger: ' + todo)
 			showCard(todo)
 		} else {
 			hideCard()
@@ -108,7 +56,6 @@ function createToDoCard(todo, todosContainer) {
 	}
 
 	const showCard = (todo) => {
-		console.log('showCard trigger: ' + todo)
 		todoCard.classList.remove('hidden-card')
 		todoCard.classList.add('show-card')
 		renderValues('full')
@@ -174,7 +121,7 @@ function createToDoCard(todo, todosContainer) {
 	}
 	renderValues('mini')
 }
-// Function for creating unique IDs using a stringified date
+// Function for creating unique IDs
 const usedIds = []
 function generateUniqueID() {
 	let id
@@ -187,11 +134,7 @@ function generateUniqueID() {
 	// Return the new ID
 	return id.toString()
 }
-function arraysAreEqual(arr1, arr2) {
-	return JSON.stringify(arr1) === JSON.stringify(arr2)
-}
 function editCard(card) {
-	console.log(card)
 	const values = Object.values(card)
 	createModal('edit Todo', values)
 	modal.showModal()
