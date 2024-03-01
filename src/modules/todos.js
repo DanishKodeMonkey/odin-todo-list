@@ -1,5 +1,6 @@
 import { format } from 'date-fns'
 import createModal from './modals'
+import { projectsArray } from '..'
 // Class module to export ,keep in mind it should only create the class objects.
 // Keep type checks, as seperate functions
 
@@ -51,6 +52,7 @@ class ToDo {
 		priority,
 		notes /* , ...checkList */
 	) {
+		this.id = generateUniqueID()
 		this.project = project
 		this.title = checkTitle(title)
 		this.description = checkDesc(desc)
@@ -62,6 +64,7 @@ class ToDo {
 	}
 	printToDo() {
 		console.log('====================================================')
+		console.log(`assigned ID: ${this.id}`)
 		console.log(`assigned project: ${this.project}`)
 		console.log(`title: ${this.title},`)
 		console.log(`description: ${this.desc},`)
@@ -91,22 +94,25 @@ function formatDate(dueDate) {
 	return format(new Date(dueDate), 'dd-MM-yyyy')
 }
 
+// Function for creating ToDo cards for render
 function createToDoCard(todo, todosContainer) {
 	const todoCard = document.createElement('div')
 	todoCard.classList.add('todo-card', 'hidden-card')
 
 	const toggleCard = () => {
 		if (todoCard.classList.contains('hidden-card')) {
-			showCard()
+			console.log('ToggleCard trigger: ' + todo)
+			showCard(todo)
 		} else {
 			hideCard()
 		}
 	}
 
-	const showCard = () => {
+	const showCard = (todo) => {
+		console.log('showCard trigger: ' + todo)
 		todoCard.classList.remove('hidden-card')
 		todoCard.classList.add('show-card')
-		addEditButton()
+		addEditButton(todo)
 	}
 
 	const hideCard = () => {
@@ -115,17 +121,26 @@ function createToDoCard(todo, todosContainer) {
 		removeEditButton()
 	}
 
-	const addEditButton = () => {
+	const addEditButton = (todo) => {
 		if (!todoCard.classList.contains('edit-button-added')) {
 			const editBtn = document.createElement('button')
 			editBtn.textContent = 'Edit'
 			editBtn.classList.add('card-edit-btn')
-			editBtn.addEventListener('click', () => editCard(todo))
+			editBtn.addEventListener('click', () => {
+				const todoToEdit = todo
+				let index = -1
+				console.log('Adding edit button' + todoToEdit)
+				for (let i = 0; i < projectsArray.length; i++) {
+					console.log('Comparing:' + projectsArray[i] + ' with ' + todoToEdit)
+					if (arraysAreEqual(projectsArray[i], todoToEdit)) index = i
+					console.log('Index found: ' + index)
+				}
+				editCard(todo)
+			})
 			todoCard.appendChild(editBtn)
 			todoCard.classList.add('edit-button-added')
 		}
 	}
-
 	const removeEditButton = () => {
 		const editBtn = todoCard.querySelector('.card-edit-btn')
 		if (editBtn) {
@@ -137,7 +152,6 @@ function createToDoCard(todo, todosContainer) {
 	todosContainer.appendChild(todoCard)
 
 	for (const [key, value] of Object.entries(todo)) {
-		console.log(key, value)
 		const todoKeyValueCont = document.createElement('div')
 		todoKeyValueCont.classList.add('todo-key-value-cont')
 
@@ -151,8 +165,24 @@ function createToDoCard(todo, todosContainer) {
 		todoCard.appendChild(todoKeyValueCont)
 	}
 }
-
+// Function for creating unique IDs using a stringified date
+const usedIds = []
+function generateUniqueID() {
+	let id
+	// Keep forming a random number, until a unused number is found.
+	do {
+		id = Math.floor(Math.random() * 9999) + 1
+	} while (usedIds.includes(id))
+	// push the found number to usedID array
+	usedIds.push(id)
+	// Return the new ID
+	return id.toString()
+}
+function arraysAreEqual(arr1, arr2) {
+	return JSON.stringify(arr1) === JSON.stringify(arr2)
+}
 function editCard(card) {
+	console.log(card)
 	const values = Object.values(card)
 	createModal('edit Todo', values)
 	modal.showModal()

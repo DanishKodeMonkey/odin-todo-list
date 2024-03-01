@@ -115,7 +115,7 @@ function createTodoModal(inputPara, editTodo) {
 	})
 	//if edit operation, select project.
 	if (editOperation) {
-		projectSelect.value = editTodo[0]
+		projectSelect.value = editTodo[1]
 	}
 	projectCont.append(projectLabel, projectSelect)
 
@@ -126,7 +126,7 @@ function createTodoModal(inputPara, editTodo) {
 	titleLabel.textContent = 'Title: '
 	const titleInput = document.createElement('input')
 	if (editOperation) {
-		titleInput.value = editTodo[1]
+		titleInput.value = editTodo[2]
 	}
 	setInputAttributes(titleInput, 'title', 'text')
 	// add extra attribute on this one so it's the first input field focussed
@@ -141,7 +141,7 @@ function createTodoModal(inputPara, editTodo) {
 	descriptionLabel.textContent = 'Description: '
 	const descriptionInput = document.createElement('input')
 	if (editOperation) {
-		descriptionInput.value = editTodo[2]
+		descriptionInput.value = editTodo[3]
 	}
 	setInputAttributes(descriptionInput, 'description', 'text')
 	descCont.append(descriptionLabel, descriptionInput)
@@ -154,7 +154,7 @@ function createTodoModal(inputPara, editTodo) {
 	const dueDateInput = document.createElement('input')
 	setInputAttributes(dueDateInput, 'dueDate', 'date')
 	if (editOperation) {
-		const originalDate = new Date(editTodo[3])
+		const originalDate = new Date(editTodo[4])
 		const formattedDate = originalDate.toISOString().split('T')[0]
 		dueDateInput.value = formattedDate
 	}
@@ -167,7 +167,7 @@ function createTodoModal(inputPara, editTodo) {
 	priorityLabel.textContent = 'Priority: '
 	const priorityInput = document.createElement('input')
 	if (editOperation) {
-		priorityInput.checked = editTodo[4] === 'true'
+		priorityInput.checked = editTodo[5] === 'true'
 	}
 	setInputAttributes(priorityInput, 'priority', 'checkbox')
 	priorityCont.append(priorityLabel, priorityInput)
@@ -179,7 +179,7 @@ function createTodoModal(inputPara, editTodo) {
 	notesLabel.textContent = 'Notes: '
 	const notesInput = document.createElement('textarea')
 	if (editOperation) {
-		notesInput.value = editTodo[5]
+		notesInput.value = editTodo[6]
 	}
 	setInputAttributes(notesInput, 'notes', 'textArea')
 	// textArea specific attributes

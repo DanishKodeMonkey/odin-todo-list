@@ -22,7 +22,7 @@ clicking any other project in the project overview, clears the display, and crea
 init()
 const render = (proj) => {
 	console.log('render triggered')
-	let currentProject = projectsArray[0]
+	let currentProject = proj
 
 	console.log('Rendering project: ')
 	console.log(currentProject)
@@ -45,7 +45,6 @@ const render = (proj) => {
 	todosContainer.classList.add('todos-container')
 	//
 	const todos = currentProject.todos
-	console.log(todos)
 	todos.forEach((todo) => {
 		createToDoCard(todo, todosContainer)
 	})
@@ -53,7 +52,7 @@ const render = (proj) => {
 	projRender.appendChild(todosContainer)
 	// Define current project, starting at index 0(default)
 }
-render()
+render(projectsArray[0])
 // toolbar
 
 const addTodoBtn = document.querySelector('#button-todo')
@@ -70,6 +69,7 @@ addProjectBtn.addEventListener('click', (e) => {
 function updateProjectsArray(inputType, modalInput) {
 	if (inputType === 'todo-edit') {
 		console.log(inputType, modalInput)
+		console.log(projectsArray)
 	}
 	if (inputType === 'todo') {
 		const findProject = (title) => {
