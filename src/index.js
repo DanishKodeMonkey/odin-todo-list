@@ -67,69 +67,73 @@ addProjectBtn.addEventListener('click', (e) => {
 
 function updateProjectsArray(inputType, modalInput, todoID) {
 	// Fetch input data from modalInput
-	const projectTitle = modalInput[0].value.trim()
-	const title = modalInput[1].value.trim()
-	const description = modalInput[2].value.trim()
-	const dueDate = modalInput[3].value.trim()
-	const priority = modalInput[4].checked
-	const notes = modalInput[5].value.trim()
+	if (inputType === 'todo' || inputType === 'todo-edit') {
+		const projectTitle = modalInput[0].value.trim()
+		const title = modalInput[1].value.trim()
+		const description = modalInput[2].value.trim()
+		const dueDate = modalInput[3].value.trim()
+		const priority = modalInput[4].checked
+		const notes = modalInput[5].value.trim()
 
-	if (inputType === 'todo-edit') {
-		console.log(
-			'updateProjectsArray edit trigger: ' + projectTitle,
-			title,
-			description,
-			dueDate,
-			priority,
-			notes
-		)
-		// Find a saved todo matching ID of edited todo
-		const selectedProject = findProject(projectTitle)
-		const currentTodoIndex = selectedProject.todos.findIndex(
-			(todo) => todo.id === todoID
-		)
-		console.log('todo index ' + currentTodoIndex + ' matches ' + todoID)
-		if (currentTodoIndex !== -1) {
-			// Remove existing todo from the array
-			const currentTodo = selectedProject.todos.splice(currentTodoIndex, 1)[0]
-			// Create a new todo with the updated information
-			const updatedTodo = new ToDo(
-				projectTitle,
+		if (inputType === 'todo-edit') {
+			console.log(
+				'updateProjectsArray edit trigger: ' + projectTitle,
 				title,
 				description,
 				dueDate,
 				priority,
 				notes
 			)
+			// Find a saved todo matching ID of edited todo
+			const selectedProject = findProject(projectTitle)
+			const currentTodoIndex = selectedProject.todos.findIndex(
+				(todo) => todo.id === todoID
+			)
+			console.log('todo index ' + currentTodoIndex + ' matches ' + todoID)
+			if (currentTodoIndex !== -1) {
+				// Remove existing todo from the array
+				const currentTodo = selectedProject.todos.splice(currentTodoIndex, 1)[0]
+				// Create a new todo with the updated information
+				const updatedTodo = new ToDo(
+					projectTitle,
+					title,
+					description,
+					dueDate,
+					priority,
+					notes
+				)
 
+				if (selectedProject) {
+					selectedProject.addToProject(updatedTodo)
+					updateTree(projectsArray)
+					render(selectedProject)
+				} else {
+					console.error(
+						`Project with title: ${projectTitle} not found in array.`
+					)
+				}
+			}
+		}
+		if (inputType === 'todo') {
+			// Create todo object
+			const todo = new ToDo(
+				projectTitle,
+				title,
+				description,
+				dueDate,
+				priority,
+				notes
+				/* 				checkList */
+			)
+			// fetch project object from title
+			const selectedProject = findProject(projectTitle)
 			if (selectedProject) {
-				selectedProject.addToProject(updatedTodo)
+				selectedProject.addToProject(todo)
 				updateTree(projectsArray)
 				render(selectedProject)
 			} else {
 				console.error(`Project with title: ${projectTitle} not found in array.`)
 			}
-		}
-	}
-	if (inputType === 'todo') {
-		// Create todo object
-		const todo = new ToDo(
-			projectTitle,
-			title,
-			description,
-			dueDate,
-			priority,
-			notes
-			/* 				checkList */
-		)
-		// fetch project object from title
-		const selectedProject = findProject(projectTitle)
-		if (selectedProject) {
-			selectedProject.addToProject(todo)
-			updateTree(projectsArray)
-			render(selectedProject)
-		} else {
-			console.error(`Project with title: ${projectTitle} not found in array.`)
 		}
 	} else if (inputType === 'project') {
 		const projectName = modalInput[0].value.trim()
@@ -141,7 +145,7 @@ function updateProjectsArray(inputType, modalInput, todoID) {
 		updateTree(projectsArray)
 	}
 }
-
+// Function to find a project based on a project title string
 function findProject(projectTitle) {
 	return projectsArray.find((project) => project.title === projectTitle)
 }
@@ -276,7 +280,7 @@ function init() {
 	// update DOM tree
 	updateTree(projectsArray)
 }
-
+console.log(projectsArray)
 // Page initialiser
 // Check if a project exist, if not, create a project.
 // Uses a pre set blank array here until persistence is established
