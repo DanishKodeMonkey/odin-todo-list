@@ -62,14 +62,6 @@ function saveProjects(projectsArray) {
 	console.log(localStorage)
 }
 
-/* function saveTodos(project) {
-	const projectTodos = []
-	project.forEach((todo) => {
-		projectTodos.push(todo)
-	})
-	console.log(projectTodos)
-} */
-
 function getProjects() {
 	console.log('getProjects trigger')
 	console.log('Getting objects from localStorage...')
@@ -95,58 +87,5 @@ function getProjects() {
 	})
 	return projectsArray
 }
-
-// Test if storage has been populated (need to be implemented properly)
-
-// Storage only supports storing and retrieving strings, for arrays and objects, stringify.
-
-/* const person = { name: "Alex" };
-localStorage.setItem("user", person);
-console.log(localStorage.getItem("user")); // "[object Object]"; not useful!
-localStorage.setItem("user", JSON.stringify(person));
-console.log(JSON.parse(localStorage.getItem("user"))); // { name: "Alex" } */
-
-// Get values from storage (to be implemented)
-/* function getProjectsAndTodos(){
-    // Assign all of the projects here to variables
-    const project1 = localStorage.getItem("project1")
-    //ETC
-
-    //assign all stored todos as variables
-    const todo1 = localStorage.getItem("todo1")
-    //etc
-
-    // run constructors with the data, effectively making new todos (start with projects)
-
-} */
-
-// FUnction to set values in storage(or update them if existing)
-/* function setProjectsAndTodos(){
-localStorage.setItem("project1", document.getElementById("project1").value)
-localStorage.setItem("todo1", document.getElementById("todo1").value)
-} */
-
-// The storage event can be listened to, useful for debugging
-/* window.addEventListener("storage", (e) =>{
-    console.log(e.key) // key of the data that changed
-    console.log(e.oldValue) // Old value before the chance
-    console.log(e.newValue) //new value afater teh change
-    console.log(e.my-url) // url where the change happened
-    console.log(JSON.stringify(e.storageArea)) // The storage object itself stringified for content view.
-}) */
-
-// Remove items from storage
-
-/* function removeTodo(){
-    localStorage.removeItem("todo")
-} */
-
-/* function removeProject(){
-    selectedproject.forEach('todo', () =>{
-        removeTodo()
-    }
-    localStorage.removeItem(selectedproject)
-    )
-} */
 
 export { checkStorage, storageAvailable, saveProjects, getProjects }
