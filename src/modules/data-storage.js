@@ -1,3 +1,6 @@
+import project from './projects'
+import { projectsArray } from './datahandler'
+
 // This module handles saving and loading data from storage
 
 // First, check if localStorage is supported and avaible (Thanks Mozilla)
@@ -52,9 +55,9 @@ function checkStorage(data) {
 
 function saveProjects(projectsArray) {
 	console.log('SaveProjects trigger, received: ')
-	console.log(projectsArray[0])
+	console.log(projectsArray)
 	console.log('transfering array to storage as string...')
-	localStorage.setItem('projects and todos', JSON.stringify(projectsArray[0]))
+	localStorage.setItem('projects and todos', JSON.stringify(projectsArray))
 	console.log('array saved to storage, result: ')
 	console.log(localStorage)
 }
@@ -77,8 +80,22 @@ function getProjects() {
 	)
 	console.log('DONE! Result: ')
 	console.log(projectsAndTodos)
-	return projectsAndTodos
+	console.log('Re-creating projects...')
+	projectsAndTodos.forEach((savedProject) => {
+		const reconstructedProject = new project(
+			savedProject.title,
+			savedProject.todos
+		)
+		console.log('Reconstructed object: ')
+		console.log(reconstructedProject)
+
+		projectsArray.push(reconstructedProject)
+		console.log('Active session updated, result: ')
+		console.log(projectsArray)
+	})
+	return projectsArray
 }
+
 // Test if storage has been populated (need to be implemented properly)
 
 // Storage only supports storing and retrieving strings, for arrays and objects, stringify.

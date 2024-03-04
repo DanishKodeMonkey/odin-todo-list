@@ -1,9 +1,8 @@
 export default class project {
-	constructor(title = 'Default') {
+	constructor(title = 'Default', todos = []) {
 		this.title = title
-		this.todos = []
+		this.todos = todos
 	}
-
 	addToProject(todo) {
 		this.todos.push(todo)
 	}

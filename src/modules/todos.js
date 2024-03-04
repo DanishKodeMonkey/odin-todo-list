@@ -93,32 +93,37 @@ function createToDoCard(todo, todosContainer) {
 	todosContainer.appendChild(todoCard)
 
 	function renderValues(state) {
+		console.log('renderValues trigger, received data: ')
+		console.log(state)
 		todoCard.innerHTML = ''
-		for (const [key, value] of Object.entries(todo)) {
-			if (state !== 'full') {
-				// minimised state triggered
-				if (key !== 'title' && key !== 'dueDate') {
-					continue
-				} //Skip itteration for this state if not title or dueDate
-			}
-			if (key === 'project' || key === 'id') {
-				continue //skip itteration for project title, irrelevant.
-			}
-			// Check if card was already rendered:
+		if (todo !== undefined) {
+			for (const [key, value] of Object.entries(todo)) {
+				if (state !== 'full') {
+					// minimised state triggered
+					if (key !== 'title' && key !== 'dueDate') {
+						continue
+					} //Skip itteration for this state if not title or dueDate
+				}
+				if (key === 'project' || key === 'id') {
+					continue //skip itteration for project title, irrelevant.
+				}
+				// Check if card was already rendered:
 
-			const todoKeyValueCont = document.createElement('div')
-			todoKeyValueCont.classList.add('todo-key-value-cont')
+				const todoKeyValueCont = document.createElement('div')
+				todoKeyValueCont.classList.add('todo-key-value-cont')
 
-			const todoKey = document.createElement('span')
-			todoKey.classList.add('todo-key')
-			todoKey.textContent = `${key.toUpperCase()}:`
-			const todoValue = document.createElement('p')
-			todoValue.classList.add('todo-value')
-			todoValue.textContent = value
-			todoKeyValueCont.append(todoKey, todoValue)
-			todoCard.appendChild(todoKeyValueCont)
+				const todoKey = document.createElement('span')
+				todoKey.classList.add('todo-key')
+				todoKey.textContent = `${key.toUpperCase()}:`
+				const todoValue = document.createElement('p')
+				todoValue.classList.add('todo-value')
+				todoValue.textContent = value
+				todoKeyValueCont.append(todoKey, todoValue)
+				todoCard.appendChild(todoKeyValueCont)
+			}
 		}
 	}
+	console.log('Rendering values in mini format')
 	renderValues('mini')
 }
 // Function for creating unique IDs

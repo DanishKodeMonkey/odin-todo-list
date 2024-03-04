@@ -18,6 +18,8 @@ const toolBar = () => {
 }
 // Render the content area of the page.
 const renderDOM = (proj) => {
+	console.log('Received project: ')
+	console.log(proj)
 	// Set the project to be rendered
 	let currentProject = findProject(proj)
 	// If the current project is not defined, set to first project in array
@@ -52,7 +54,10 @@ const renderDOM = (proj) => {
 		const todosContainer = document.createElement('div')
 		todosContainer.classList.add('todos-container')
 		//
+		console.log('currenProject: ' + currentProject)
+		console.log(Array.isArray(currentProject.todos))
 		const projectTodos = currentProject.todos
+		console.log('currentProject.todos: ' + projectTodos)
 		projectTodos.forEach((todo) => {
 			createToDoCard(todo, todosContainer)
 		})
