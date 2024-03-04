@@ -14,7 +14,7 @@ function storageAvailable(type) {
 		const x = '__storage_test__'
 		storage.setItem(x, x)
 		storage.removeItem(x)
-		console.log(`${type} setItem successful! ${type} ready!`)
+		console.log(`${type} test successful! ${type} ready!`)
 		return true
 		//if it fails, catch error
 	} catch (e) {
@@ -36,26 +36,49 @@ function storageAvailable(type) {
 
 // Function that checks storage on init()
 function checkStorage(data) {
-	console.log(
-		`CheckStorage trigger, received ${Object.entries(data)}, processing...`
-	)
-	const projectStringified = JSON.stringify(data)
-	console.log(`${data.title} stringified, result: ${projectStringified}`)
+	console.log(`CheckStorage trigger, received ${data}, processing...`)
 
 	console.log(`Checking local storage for item ${data}`)
 	if (!localStorage.getItem(data)) {
 		console.log(`${data} not found.`)
 		console.log(localStorage)
 		return false
-	} else {
+	} else if (localStorage.getItem(data)) {
 		console.log(`${data} found!`)
 		console.log(localStorage)
 		return true
 	}
 }
 
-function saveProject(project) {}
+function saveProjects(projectsArray) {
+	console.log('SaveProjects trigger, received: ')
+	console.log(projectsArray[0])
+	console.log('transfering array to storage as string...')
+	localStorage.setItem('projects and todos', JSON.stringify(projectsArray[0]))
+	console.log('array saved to storage, result: ')
+	console.log(localStorage)
+}
 
+/* function saveTodos(project) {
+	const projectTodos = []
+	project.forEach((todo) => {
+		projectTodos.push(todo)
+	})
+	console.log(projectTodos)
+} */
+
+function getProjects() {
+	console.log('getProjects trigger')
+	console.log('Getting objects from localStorage...')
+	console.log(localStorage.getItem('projects and todos'))
+	console.log('Parsing as array...')
+	const projectsAndTodos = JSON.parse(
+		localStorage.getItem('projects and todos')
+	)
+	console.log('DONE! Result: ')
+	console.log(projectsAndTodos)
+	return projectsAndTodos
+}
 // Test if storage has been populated (need to be implemented properly)
 
 // Storage only supports storing and retrieving strings, for arrays and objects, stringify.
@@ -109,4 +132,4 @@ localStorage.setItem("todo1", document.getElementById("todo1").value)
     )
 } */
 
-export { checkStorage, storageAvailable }
+export { checkStorage, storageAvailable, saveProjects, getProjects }

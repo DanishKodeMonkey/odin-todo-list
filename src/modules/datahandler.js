@@ -1,9 +1,14 @@
 import { ToDo } from './todos'
 import project from './projects'
 import { renderDOM, updateTree } from './render'
-let projectsArray = []
 
+let projectsArray = []
+console.log(projectsArray)
 function updateProjectsArray(inputType, modalInput, todoID) {
+	console.log('updateProjectsArray trigger, data received:')
+	console.log(inputType)
+	console.log(modalInput)
+	console.log(todoID)
 	// Fetch input data from modalInput
 	if (inputType === 'todo' || inputType === 'todo-edit') {
 		const projectTitle = modalInput[0].value.trim()
@@ -65,6 +70,7 @@ function updateProjectsArray(inputType, modalInput, todoID) {
 			)
 			// fetch project object from title
 			const selectedProject = findProject(projectTitle)
+			console.log(selectedProject)
 			if (selectedProject) {
 				selectedProject.addToProject(todo)
 				updateTree(projectsArray)
