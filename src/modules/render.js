@@ -1,5 +1,10 @@
 import { createToDoCard } from './todos'
-import { projectsArray, findProject } from './datahandler'
+import {
+	projectsArray,
+	findProject,
+	deleteProject,
+	deleteTodo,
+} from './datahandler'
 import init from '..'
 import createModal from './modals'
 
@@ -98,10 +103,7 @@ function updateTree(projectsArray) {
 		const projectDelBtn = document.createElement('button')
 		projectDelBtn.classList.add('delBtn')
 		projectDelBtn.innerHTML = '&#10006'
-		projectDelBtn.addEventListener('click', () => {
-			projectsArray.splice(projectIndex, 1)
-			updateTree(projectsArray)
-		})
+		projectDelBtn.addEventListener('click', () => deleteProject(projectIndex))
 		// put the project elements together
 		projectTitle.appendChild(projectDelBtn)
 		treeProject.appendChild(projectTitle)
@@ -120,11 +122,9 @@ function updateTree(projectsArray) {
 			const todoDelBtn = document.createElement('button')
 			todoDelBtn.classList.add('delBtn')
 			todoDelBtn.innerHTML = '&#10006'
-			todoDelBtn.addEventListener('click', () => {
-				projectsArray[projectIndex].todos.splice(todoIndex, 1)
-				updateTree(projectsArray)
-				render(findProject(project.title))
-			})
+			todoDelBtn.addEventListener('click', () =>
+				deleteTodo(projectIndex, todoIndex)
+			)
 			// put the todo elements together
 			projectTodoContainer.append(projectTodoText, todoDelBtn)
 			treeProject.appendChild(projectTodoContainer)

@@ -1,6 +1,7 @@
 import { ToDo } from './todos'
 import project from './projects'
 import { renderDOM, updateTree } from './render'
+import { saveProjects } from './data-storage'
 
 let projectsArray = []
 console.log(projectsArray)
@@ -50,6 +51,7 @@ function updateProjectsArray(inputType, modalInput, todoID) {
 					selectedProject.addToProject(updatedTodo)
 					updateTree(projectsArray)
 					renderDOM(selectedProject)
+					saveProjects(projectsArray)
 				} else {
 					console.error(
 						`Project with title: ${projectTitle} not found in array.`
@@ -75,6 +77,7 @@ function updateProjectsArray(inputType, modalInput, todoID) {
 				selectedProject.addToProject(todo)
 				updateTree(projectsArray)
 				renderDOM(selectedProject)
+				saveProjects(projectsArray)
 			} else {
 				console.error(`Project with title: ${projectTitle} not found in array.`)
 			}
@@ -87,6 +90,7 @@ function updateProjectsArray(inputType, modalInput, todoID) {
 		projectsArray.push(newProject)
 		console.log(projectsArray)
 		updateTree(projectsArray)
+		saveProjects(projectsArray)
 	}
 }
 
@@ -95,4 +99,25 @@ function findProject(projectTitle) {
 	return projectsArray.find((project) => project.title === projectTitle)
 }
 
-export { projectsArray, updateProjectsArray, findProject }
+function deleteProject(projectIndex) {
+	console.log('delete project trigger')
+	projectsArray.splice(projectIndex, 1)
+	updateTree(projectsArray)
+	saveProjects(projectsArray)
+}
+
+function deleteTodo(projectIndex, todoIndex) {
+	console.log('delete todo trigger')
+	projectsArray[projectIndex].todos.splice(todoIndex, 1)
+	updateTree(projectsArray)
+	renderDOM(findProject(project.title))
+	saveProjects(projectsArray)
+}
+
+export {
+	projectsArray,
+	updateProjectsArray,
+	findProject,
+	deleteProject,
+	deleteTodo,
+}
